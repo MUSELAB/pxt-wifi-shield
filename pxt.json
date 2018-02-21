@@ -4,7 +4,8 @@
     "description": "Blocks to simplify using muselab products in PXT",
     "license": "MIT",
     "dependencies": {
-        "core": "*"
+        "core": "*",		
+		"pxt-muselab-plugin": "github:muselab/pxt-robotic-shield#test13"
     },
     "files": [
         "README.md",
