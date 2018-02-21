@@ -56,22 +56,6 @@ namespace MuseIoT {
 	// -------------- 3. Others ----------------
 
 	//%subcategory=More
-    //%blockId=muselab_180servo
-    //% block="Control 180° servo pin %pin| degree %degree"
-	//% weight=50	
-    export function control180Servo(pin: number, degree: number): void {
-        serial.writeLine("(AT+servo_180?pin="+pin+"&degree="+degree+")");
-    }	
-
-	//%subcategory=More
-    //%blockId=muselab_360servo
-    //% block="Control 360° servo pin %pin| direction %direction| speed %speed"
-	//% weight=45	
-    export function control360Servo(pin: number, direction: string, speed: number): void {
-        serial.writeLine("(AT+servo_360?pin="+pin+"&direction="+direction+"&speed="+speed+")");
-    }
-
-	//%subcategory=More
     //%blockId=muselab_battery
     //%block="Get battery level"
 	//% weight=40	
