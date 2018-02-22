@@ -5,6 +5,7 @@ namespace MuseIoT {
     //%blockId=muselab_initialize_wifi
     //%block="Initialize WiFi IoT Shield"
 	//% weight=90
+	//% blockGap=7	
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
     }
@@ -16,17 +17,12 @@ namespace MuseIoT {
     export function setWifi(ssid: string, pwd: string): void {
         serial.writeLine("(AT+wifi?ssid="+ssid+"&pwd="+pwd+")"); 
     }
-	
-	//% blockId=muselab_set_wifi_hotspot
-	//% block="Set hotspot to ssid %ssid| pwd %pwd"   
-	//% weight=75	
-    export function setWifiHotspot(ssid: string, pwd: string): void {
-        serial.writeLine("(AT+wifi_hotspot?ssid="+ssid+"&pwd="+pwd+")"); 
-    }
-	
+
+	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_thingspeak
 	//% block="Send ThingSpeak key %key| field1 %field1| field2 %field2"
 	//% weight=70	
+	//% blockGap=7	
     export function sendThingspeak(key: string, field1: number, field2: number): void {
         serial.writeLine("(AT+thingspeak?key=" + key+"&field1="+field1+"&field2="+field2+")"); 
     }
@@ -36,6 +32,15 @@ namespace MuseIoT {
 	//% weight=60	
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number): void {
         serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+")"); 
+    }
+	
+	// -------------- 4. Others ----------------
+	//% blockId=muselab_set_wifi_hotspot
+	//% block="Set hotspot to ssid %ssid| pwd %pwd"   
+	//% weight=58	
+	//% blockGap=7	
+    export function setWifiHotspot(ssid: string, pwd: string): void {
+        serial.writeLine("(AT+wifi_hotspot?ssid="+ssid+"&pwd="+pwd+")"); 
     }
 	
     //%blockId=muselab_start_server
@@ -53,7 +58,7 @@ namespace MuseIoT {
 		
     }
 	
-	// -------------- 3. Advanced Wifi ----------------
+	// -------------- 5. Advanced Wifi ----------------
 	
 	//%subcategory=More
     //%blockId=muselab_muse_mqtt
@@ -94,7 +99,7 @@ namespace MuseIoT {
         serial.writeLine("(AT+mqttSub?topic="+topic+")");
     }	
 	
-	// -------------- 4. General ----------------		
+	// -------------- 6. General ----------------		
 
 	//%subcategory=More
     //%blockId=muselab_battery
