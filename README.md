@@ -8,7 +8,7 @@ A PXT library for Muse IOT Shield
 
 Sets up the Muselab WiFi IoT Shield used for the micro:bit.
 
-```sig
+```blocks
 MuseIoT.initializeWifi()
 ```
 
@@ -16,7 +16,7 @@ MuseIoT.initializeWifi()
 
 Connect the Muselab WiFi IoT Shield to the WiFi (Home router)
 
-```sig
+```blocks
 MuseIoT.setWifi("muselab", "12345678")
 ```
 
@@ -27,7 +27,7 @@ Here we take "muselab" as router SSID and "12345678" as router password.
 
 Configure the Muselab WiFi IoT Shield as a hotspot.
 
-```sig
+```blocks
 MuseIoT.setWifiHotspot("muselab", "12345678")
 ```
 
@@ -38,7 +38,7 @@ For the hotspot, here we take "muselab" as SSID and "12345678" as password.
 
 Upload data to ThingSpeak
 
-```sig
+```blocks
 MuseIoT.sendThingspeak("asdasdasdasdasdasd", 0, 0)
 ```
 
@@ -49,7 +49,7 @@ Here we take "asdasdasdasdasdasd" as the ThingSpeak key, 0 as field1 value and 0
 
 Trigger the IFTTT cloud event such as email, sms and so on.
 
-```sig
+```blocks
     MuseIoT.sendIFTTT(
     "asdasdasdasdasdasd",
     "email",
