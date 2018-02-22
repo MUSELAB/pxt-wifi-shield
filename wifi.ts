@@ -4,7 +4,8 @@ namespace MuseIoT {
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
     //%block="Initialize WiFi IoT Shield"
-	//% weight=90
+	//% weight=90	
+	//% blockGap=7	
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
     }
@@ -12,21 +13,17 @@ namespace MuseIoT {
 	// -------------- 2. WiFi ----------------
     //% blockId=muselab_set_wifi
 	//% block="Set wifi to ssid %ssid| pwd %pwd"   
-	//% weight=80	
+	//% weight=80		
+	//% blockGap=7	
     export function setWifi(ssid: string, pwd: string): void {
         serial.writeLine("(AT+wifi?ssid="+ssid+"&pwd="+pwd+")"); 
     }
-	
-	//% blockId=muselab_set_wifi_hotspot
-	//% block="Set hotspot to ssid %ssid| pwd %pwd"   
-	//% weight=75	
-    export function setWifiHotspot(ssid: string, pwd: string): void {
-        serial.writeLine("(AT+wifi_hotspot?ssid="+ssid+"&pwd="+pwd+")"); 
-    }
-	
+
+	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_thingspeak
 	//% block="Send ThingSpeak key %key| field1 %field1| field2 %field2"
 	//% weight=70	
+	//% blockGap=7	
     export function sendThingspeak(key: string, field1: number, field2: number): void {
         serial.writeLine("(AT+thingspeak?key=" + key+"&field1="+field1+"&field2="+field2+")"); 
     }
@@ -36,6 +33,15 @@ namespace MuseIoT {
 	//% weight=60	
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number): void {
         serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+")"); 
+    }
+	
+	// -------------- 4. Others ----------------
+	//% blockId=muselab_set_wifi_hotspot
+	//% block="Set hotspot to ssid %ssid| pwd %pwd"   
+	//% weight=58	
+	//% blockGap=7	
+    export function setWifiHotspot(ssid: string, pwd: string): void {
+        serial.writeLine("(AT+wifi_hotspot?ssid="+ssid+"&pwd="+pwd+")"); 
     }
 	
     //%blockId=muselab_start_server
@@ -53,47 +59,13 @@ namespace MuseIoT {
 		
     }
 	
-	// -------------- 3. Others ----------------
-
-	//%subcategory=More
-    //%blockId=muselab_180servo
-    //% block="Control 180° servo pin %pin| degree %degree"
-	//% weight=50	
-    export function control180Servo(pin: number, degree: number): void {
-        serial.writeLine("(AT+servo_180?pin="+pin+"&degree="+degree+")");
-    }	
-
-	//%subcategory=More
-    //%blockId=muselab_360servo
-    //% block="Control 360° servo pin %pin| direction %direction| speed %speed"
-	//% weight=45	
-    export function control360Servo(pin: number, direction: string, speed: number): void {
-        serial.writeLine("(AT+servo_360?pin="+pin+"&direction="+direction+"&speed="+speed+")");
-    }
-
-	//%subcategory=More
-    //%blockId=muselab_battery
-    //%block="Get battery level"
-	//% weight=40	
-    export function sendBattery(): void {
-        serial.writeLine("(AT+battery)");
-    }	
-	
-		
-	//%subcategory=More
-    //%blockId=muselab_version
-    //%block="Get firmware version"
-	//% weight=39	
-    export function sendVersion(): void {
-        serial.writeLine("(AT+version)");
-    }
-	
-	// -------------- 4. Advanced Wifi ----------------
+	// -------------- 5. Advanced Wifi ----------------
 	
 	//%subcategory=More
     //%blockId=muselab_muse_mqtt
     //%block="Connect to Muse MQTT server"
 	//% weight=44
+	//% blockGap=7	
     export function connectMuseMQTT(): void {
         serial.writeLine("(AT+startMQTT?host=13.58.53.42&port=1883&clientId=100&username=omlxmgsy&password=AoGUfQNPkeSH)");
 		while(true) {
@@ -106,6 +78,7 @@ namespace MuseIoT {
 	//% blockId=muselab_general_mqtt
 	//% block="Connect MQTT server %host| port %port| client id %clientId| username %username| password %pwd"
 	//% weight=43
+	//% blockGap=7	
     export function connectgeneralMQTT(host: string, port: string, clientId: string, username: string, pwd: string): void {
         serial.writeLine("(AT+startMQTT?host="+host+"&port="+port+"&clientId="+clientId+"&username="+username+"&password="+pwd+")");
     }
@@ -114,6 +87,7 @@ namespace MuseIoT {
     //%blockId=muselab_mqtt_publish
     //% block="MQTT publish topic %topic| payload %payload"
 	//% weight=42	
+	//% blockGap=7	
     export function mqttPublish(topic: string, payload: string): void {
         serial.writeLine("(AT+mqttPub?topic="+topic+"&payload="+payload+")");
     }	
@@ -126,11 +100,32 @@ namespace MuseIoT {
         serial.writeLine("(AT+mqttSub?topic="+topic+")");
     }	
 	
-	// -------------- 5. General ----------------
+	// -------------- 6. General ----------------		
+
+	//%subcategory=More
+    //%blockId=muselab_battery
+    //%block="Get battery level"
+	//% weight=40
+	//% blockGap=7		
+	
+    export function sendBattery(): void {
+        serial.writeLine("(AT+battery)");
+    }	
+	
+	//%subcategory=More
+    //%blockId=muselab_version
+    //%block="Get firmware version"
+	//% weight=39	
+	//% blockGap=7		
+    export function sendVersion(): void {
+        serial.writeLine("(AT+version)");
+    }
+	
 	//%subcategory=More
     //%blockId=muselab_at
     //%block="Send AT command %command"
 	//% weight=30	
+	//% blockGap=7		
     export function sendAT(command: string): void {
         serial.writeLine(command);
 		flag = false
@@ -140,6 +135,7 @@ namespace MuseIoT {
     //%blockId=muselab_test
     //%block="Send AT test"
 	//% weight=20	
+	//% blockGap=7		
     export function sendTest(): void {
         serial.writeLine("(AT+testing)");
     }
@@ -151,6 +147,5 @@ namespace MuseIoT {
     export function setDeepSleep(second: number): void {
         serial.writeLine("(AT+deepsleep?time="+second+")");
     }	
-		
-	
+
 }
