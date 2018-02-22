@@ -4,7 +4,7 @@ namespace MuseIoT {
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
     //%block="Initialize WiFi IoT Shield"
-	//% weight=90
+	//% weight=90	
 	//% blockGap=7	
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
@@ -13,7 +13,8 @@ namespace MuseIoT {
 	// -------------- 2. WiFi ----------------
     //% blockId=muselab_set_wifi
 	//% block="Set wifi to ssid %ssid| pwd %pwd"   
-	//% weight=80	
+	//% weight=80		
+	//% blockGap=7	
     export function setWifi(ssid: string, pwd: string): void {
         serial.writeLine("(AT+wifi?ssid="+ssid+"&pwd="+pwd+")"); 
     }
