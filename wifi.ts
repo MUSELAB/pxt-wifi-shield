@@ -30,7 +30,8 @@ namespace MuseIoT {
 	
     //% blockId=muselab_set_ifttt
 	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2"
-	//% weight=60	
+	//% weight=60
+	//% blockGap=7		
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number): void {
         serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+")"); 
     }
