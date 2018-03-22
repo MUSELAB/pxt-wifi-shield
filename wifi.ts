@@ -34,6 +34,13 @@ namespace MuseIoT {
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number): void {
         serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+")"); 
     }
+
+    //% blockId=muselab_set_arcgis
+	//% block="Send Arcgis objectid %objectid|reading1 %reading1|reading2 %reading2|sensorid %sensorid|x %x|y %y"
+	//% weight=59	
+    export function sendArcgis(objectid: number, reading1: number, reading2: number, sensorid: string, x: number, y: number): void {
+        serial.writeLine("(AT+arcgis?objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+    }
 	
 	// -------------- 4. Others ----------------
 	//% blockId=muselab_set_wifi_hotspot
