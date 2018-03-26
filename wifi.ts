@@ -37,10 +37,10 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send Arcgis objectid %objectid|reading1 %reading1|reading2 %reading2|sensorid %sensorid|x %x|y %y"
+	//% block="Send Arcgis feature serviceid %featureserviceid|objectid %objectid|reading1 %reading1|reading2 %reading2|sensorid %sensorid|x %x|y %y"
 	//% weight=59	
-    export function sendArcgis(objectid: number, reading1: number, reading2: number, sensorid: string, x: number, y: number): void {
-        serial.writeLine("(AT+arcgis?objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+    export function sendArcgis(featureserviceid: string, objectid: number, reading1: number, reading2: number, sensorid: string, x: number, y: number): void {
+        serial.writeLine("(AT+arcgis?featureserviceid="+featureserviceid+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
     }
 	
 	// -------------- 4. Others ----------------
