@@ -44,7 +44,7 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send Arcgis feature function %arcgisfunction|serviceid %featureserviceid|objectid(For add only) %objectid|reading1 %reading1|reading2 %reading2|sensorid %sensorid|x %x|y %y"
+	//% block="Send Arcgis feature function %arcgisfunction|serviceid %featureserviceid|reading1 %reading1|reading2 %reading2|sensorid %sensorid|x %x|y %y|objectid (For update only) %objectid"
 	//% weight=59	
     export function sendArcgis(arcgisfunction: arcgisFunction, featureserviceid: string, objectid: number, reading1: number, reading2: number, sensorid: string, x: string, y: string): void {
 		switch(arcgisfunction){
