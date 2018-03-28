@@ -36,11 +36,11 @@ namespace MuseIoT {
     }
 	
     //% blockId=muselab_set_ifttt
-	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2"
+	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2|value3 %value3"
 	//% weight=60
 	//% blockGap=7		
-    export function sendIFTTT(key: string, eventname: string, value1: number, value2: number): void {
-        serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+")"); 
+    export function sendIFTTT(key: string, eventname: string, value1: number, value2: number, value3: number): void {
+        serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+"&value3="+value3+")"); 
     }
 
     //% blockId=muselab_set_arcgis
@@ -67,7 +67,7 @@ namespace MuseIoT {
     }
 	
     //%blockId=muselab_start_server
-    //%block="Start web listening"
+    //%block="Start WiFi remote control"
 	//% weight=55	
     export function startWebServer(): void {
 		flag = true
