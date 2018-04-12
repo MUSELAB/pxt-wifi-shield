@@ -44,12 +44,12 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|serviceid %featureserviceid|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|serviceid %featureserviceid|layername %layername|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, featureserviceid: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, featureserviceid: string, layername: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
-                serial.writeLine("(AT+arcgis?arcgisfunction=add&featureserviceid="+featureserviceid+"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                serial.writeLine("(AT+arcgis?arcgisfunction=add&featureserviceid="+featureserviceid+"&layername="+layername+"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
             case arcgisFunction.update:
                 serial.writeLine("(AT+arcgis?arcgisfunction=update&featureserviceid="+featureserviceid+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
