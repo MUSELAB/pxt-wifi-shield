@@ -52,7 +52,7 @@ namespace MuseIoT {
                 serial.writeLine("(AT+arcgis?arcgisfunction=add&featureserviceid="+featureserviceid+"&layername="+layername+"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
             case arcgisFunction.update:
-                serial.writeLine("(AT+arcgis?arcgisfunction=update&featureserviceid="+featureserviceid+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                serial.writeLine("(AT+arcgis?arcgisfunction=update&featureserviceid="+featureserviceid+"&layername="+layername+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
 		}
     }
