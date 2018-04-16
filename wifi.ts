@@ -1,6 +1,13 @@
 namespace MuseIoT {
 	let flag = true;
 	
+	export enum arcgisFunction {
+        //% block="Add"
+        add,
+        //% block="Update"
+        update
+    }
+	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
     //%block="Initialize WiFi IoT Shield"
@@ -29,10 +36,25 @@ namespace MuseIoT {
     }
 	
     //% blockId=muselab_set_ifttt
-	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2"
-	//% weight=60	
-    export function sendIFTTT(key: string, eventname: string, value1: number, value2: number): void {
-        serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+")"); 
+	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2|value3 %value3"
+	//% weight=60
+	//% blockGap=7		
+    export function sendIFTTT(key: string, eventname: string, value1: number, value2: number, value3: number): void {
+        serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+"&value3="+value3+")"); 
+    }
+
+    //% blockId=muselab_set_arcgis
+	//% block="Send ArcGIS Online feature function %arcgisfunction|serviceid %featureserviceid|layername %layername|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
+	//% weight=59	
+    export function sendArcgis(arcgisfunction: arcgisFunction, featureserviceid: string, layername: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
+		switch(arcgisfunction){
+			case arcgisFunction.add:
+                serial.writeLine("(AT+arcgis?arcgisfunction=add&featureserviceid="+featureserviceid+"&layername="+layername+"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                break
+            case arcgisFunction.update:
+                serial.writeLine("(AT+arcgis?arcgisfunction=update&featureserviceid="+featureserviceid+"&layername="+layername+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                break
+		}
     }
 	
 	// -------------- 4. Others ----------------
@@ -45,7 +67,7 @@ namespace MuseIoT {
     }
 	
     //%blockId=muselab_start_server
-    //%block="Start web listening"
+    //%block="Start WiFi remote control"
 	//% weight=55	
     export function startWebServer(): void {
 		flag = true
