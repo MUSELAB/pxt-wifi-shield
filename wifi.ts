@@ -185,7 +185,7 @@ namespace MuseIoT {
     //%blockId=muselab_forever_sleep
     //%block="Soft trun off"
 	//% weight=14	
-    export function setDeepSleep(second: number): void {
+    export function setTurnOff(): void {
         serial.writeLine("(AT+deepsleep?time=0)");
     }	
 
