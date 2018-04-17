@@ -17,6 +17,17 @@ namespace MuseIoT {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
     }
 	
+	// -------------- 1. Get wifi feedback ----------------
+    //%blockId=muselab_get_feedback
+    //%block="Get feed back from IoT Shield"
+	//% weight=85	
+	//% blockGap=7	
+    export function getWifiFeedback(): void {
+        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+			OLED.showString(serial.readLine())
+		})
+    }
+	
 	// -------------- 2. WiFi ----------------
     //% blockId=muselab_set_wifi
 	//% block="Set wifi to ssid %ssid| pwd %pwd"   
