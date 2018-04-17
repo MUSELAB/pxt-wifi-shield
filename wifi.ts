@@ -19,7 +19,7 @@ namespace MuseIoT {
 	
 	// -------------- 1. Get wifi feedback ----------------
     //%blockId=muselab_get_feedback
-    //%block="Initialize OLED and get feedback"
+    //%block="Initialize OLED and feedback channel"
 	//% weight=88	
 	//% blockGap=7	
     export function getWifiFeedback(): void {
