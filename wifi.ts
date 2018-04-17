@@ -25,7 +25,7 @@ namespace MuseIoT {
     export function getWifiFeedback(): void {
 		OLED.init(32, 128)
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-			OLED.showString(serial.readLine())
+			OLED.showString(serial.readLine().substr(0, 21))
 		})
     }
 	
@@ -179,6 +179,14 @@ namespace MuseIoT {
 	//% weight=15	
     export function setDeepSleep(second: number): void {
         serial.writeLine("(AT+deepsleep?time="+second+")");
+    }	
+	
+	//%subcategory=More
+    //%blockId=muselab_forever_sleep
+    //%block="Soft trun off"
+	//% weight=14	
+    export function setDeepSleep(second: number): void {
+        serial.writeLine("(AT+deepsleep?time=0)");
     }	
 
 }
