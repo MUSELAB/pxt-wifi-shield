@@ -10,19 +10,11 @@ namespace MuseIoT {
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
-    //%block="Initialize WiFi IoT Shield"
+    //%block="Initialize WiFi IoT Shield and OLED"
 	//% weight=90	
 	//% blockGap=7	
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
-    }
-	
-	// -------------- 1. Get wifi feedback ----------------
-    //%blockId=muselab_get_feedback
-    //%block="Initialize OLED and feedback channel"
-	//% weight=88	
-	//% blockGap=7	
-    export function getWifiFeedback(): void {
 		OLED.init(32, 128)
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
 			OLED.showString(serial.readLine())
