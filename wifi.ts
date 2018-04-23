@@ -8,17 +8,30 @@ namespace MuseIoT {
         update
     }
 	
+	export enum withOled {
+        //% block="with"
+        with,
+        //% block="without"
+        without
+    }
+	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
-    //%block="Initialize WiFi IoT Shield and OLED"
+    //%block="Initialize WiFi IoT Shield %witholed| OLED"
 	//% weight=90	
 	//% blockGap=7	
-    export function initializeWifi(): void {
+    export function initializeWifi(witholed: withOled): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
-		MuseOLED.init(32, 128)
-        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-			MuseOLED.showString(serial.readLine())
-		})
+		switch(witholed){
+			case withOled.with:
+				MuseOLED.init(32, 128)
+				serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+					MuseOLED.showString(serial.readLine())
+				})
+				break
+            case withOled.without:                         
+				break
+		}
     }
 	
 	// -------------- 2. WiFi ----------------
