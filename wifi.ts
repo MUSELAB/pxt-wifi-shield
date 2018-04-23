@@ -17,7 +17,7 @@ namespace MuseIoT {
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
-    //%block="Initialize WiFi IoT Shield %witholed| OLED"
+    //%block="Initialize WiFi IoT Shield  %witholed|OLED feedback"
 	//% weight=90	
 	//% blockGap=7	
     export function initializeWifi(witholed: withOled): void {
