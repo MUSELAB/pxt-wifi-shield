@@ -17,21 +17,15 @@ namespace MuseIoT {
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
-    //%block="Initialize WiFi IoT Shield  %witholed|OLED feedback"
+    //%block="Initialize WiFi IoT Shield and OLED"
 	//% weight=90	
 	//% blockGap=7	
-    export function initializeWifi(witholed: withOled): void {
+    export function initializeWifi(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
-		switch(witholed){
-			case withOled.with:
-				MuseOLED.init(32, 128)
-				serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-					MuseOLED.showString(serial.readLine())
-				})
-				break
-            case withOled.without:                         
-				break
-		}
+		MuseOLED.init(32, 128)
+        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+			MuseOLED.showString(serial.readLine())
+		})
     }
 	
 	// -------------- 2. WiFi ----------------
@@ -84,7 +78,8 @@ namespace MuseIoT {
 	
     //%blockId=muselab_start_server
     //%block="Start WiFi remote control"
-	//% weight=55	
+	//% weight=55
+	//% blockGap=7		
     export function startWebServer(): void {
 		flag = true
 		serial.writeLine("(AT+startWebServer)")
@@ -95,6 +90,23 @@ namespace MuseIoT {
 				break;
 		}
 		
+    }
+	
+    //%blockId=muselab_initialize_wifi_advanced
+    //%block="Initialize WiFi IoT Shield  %witholed|OLED feedback"
+	//% weight=54	
+    export function initializeWifiAdvanced(witholed: withOled): void {
+        serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
+		switch(witholed){
+			case withOled.with:
+				MuseOLED.init(32, 128)
+				serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+					MuseOLED.showString(serial.readLine())
+				})
+				break
+            case withOled.without:                         
+				break
+		}
     }
 	
 	// -------------- 5. Advanced Wifi ----------------
