@@ -10,19 +10,19 @@ namespace MuseIoT {
 
 	export enum arcgisSensorSelect {
         //% block="Wind direction"
-        wind_direction = "Wind direction",
+        wind_direction,
         //% block="Wind speed"
-        winf_speed = "Wind speed",
+        winf_speed ,
 		//% block="Rain fall"
-        rain_fall = "Rain fall",
+        rain_fall,
         //% block="PM 2.5"
-        pm_2_5 = "PM 2.5",
+        pm_2_5,
 		//% block="Temperature sensor"
-        temperature_sensor = "Tempeature",
+        temperature_sensor,
         //% block="Analog input"
-        analog_input = "Analog input",
+        analog_input,
 		//% block="Digital input"
-        digital_input = "Digital input"
+        digital_input
     }		
 	
 	// -------------- 1. Initialization ----------------
