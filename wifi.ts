@@ -28,13 +28,13 @@ namespace MuseIoT {
 	//% blockId="arcgisSensorSelect_conv" block="%sensortype"
 	export function arcgisSensorSelect(sensortype : ArcgisSensorSelect) : string {
 		switch(sensortype) {
-			case Delimiters.wind_direction: return "Wind direction";
-			case Delimiters.winf_speed:  return "Wind speed";
-			case Delimiters.rain_fall: return "Rain fall";
-			case Delimiters.pm_2_5:  return "PM 2.5";
-			case Delimiters.temperature_sensor: return "Temperature";
-			case Delimiters.analog_input:  return "Analog input";
-			case Delimiters.digital_input:  return "Digital input";
+			case ArcgisSensorSelect.wind_direction: return "Wind direction";
+			case ArcgisSensorSelect.winf_speed:  return "Wind speed";
+			case ArcgisSensorSelect.rain_fall: return "Rain fall";
+			case ArcgisSensorSelect.pm_2_5:  return "PM 2.5";
+			case ArcgisSensorSelect.temperature_sensor: return "Temperature";
+			case ArcgisSensorSelect.analog_input:  return "Analog input";
+			case ArcgisSensorSelect.digital_input:  return "Digital input";
 		}
 	}	
 	
