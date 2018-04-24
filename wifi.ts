@@ -8,7 +8,7 @@ namespace MuseIoT {
         update
     }
 
-	export enum arcgisSensorSelect {
+	export enum ArcgisSensorSelect {
         //% block="Wind direction"
         wind_direction,
         //% block="Wind speed"
@@ -23,7 +23,20 @@ namespace MuseIoT {
         analog_input,
 		//% block="Digital input"
         digital_input
-    }		
+    }
+
+	//% blockId="arcgisSensorSelect_conv" block="%arc"
+	export function arcgisSensorSelect(arc : ArcgisSensorSelect) : string {
+		switch(del) {
+			case Delimiters.wind_direction: return "Wind direction";
+			case Delimiters.winf_speed:  return "Wind speed";
+			case Delimiters.rain_fall: return "Rain fall";
+			case Delimiters.pm_2_5:  return "PM 2.5";
+			case Delimiters.temperature_sensor: return "Temperature";
+			case Delimiters.analog_input:  return "Analog input";
+			case Delimiters.digital_input:  return "Digital input";
+		}
+	}	
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
@@ -64,9 +77,9 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|sensor_type %sensortype|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|sensor_type %sensortype=arcgisSensorSelect_conv|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, sensortype: arcgisSensorSelect, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensorid: string, reading: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, sensortype: string, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
                 serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
