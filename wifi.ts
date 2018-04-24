@@ -25,7 +25,19 @@ namespace MuseIoT {
         digital_input
     }
 
-
+	//%blockId=arcgisSensorSelect_conv 
+	//%block="%sensortype"
+	export function arcgisSensorSelect(sensortype : ArcgisSensorSelect) : string {
+		switch(sensortype) {
+			case ArcgisSensorSelect.wind_direction: return "Wind direction";
+			case ArcgisSensorSelect.winf_speed:  return "Wind speed";
+			case ArcgisSensorSelect.rain_fall: return "Rain fall";
+			case ArcgisSensorSelect.pm_2_5:  return "PM 2.5";
+			case ArcgisSensorSelect.temperature_sensor: return "Temperature";
+			case ArcgisSensorSelect.analog_input:  return "Analog input";
+			case ArcgisSensorSelect.digital_input:  return "Digital input";
+		}
+	}	
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
