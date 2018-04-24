@@ -27,7 +27,7 @@ namespace MuseIoT {
 
 	//% blockId="arcgisSensorSelect_conv" block="%arc"
 	export function arcgisSensorSelect(arc : ArcgisSensorSelect) : string {
-		switch(del) {
+		switch(arc) {
 			case Delimiters.wind_direction: return "Wind direction";
 			case Delimiters.winf_speed:  return "Wind speed";
 			case Delimiters.rain_fall: return "Rain fall";
