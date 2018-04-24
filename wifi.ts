@@ -6,7 +6,24 @@ namespace MuseIoT {
         add,
         //% block="Update"
         update
-    }	
+    }
+
+	export enum arcgisSensorSelect {
+        //% block="Wind direction"
+        wind_direction,
+        //% block="Wind speed"
+        winf_speed,
+		//% block="Rain fall"
+        rain_fall,
+        //% block="PM 2.5"
+        pm_2_5,
+		//% block="Temperature sensor"
+        temperature_sensor,
+        //% block="Analog input"
+        analog_input,
+		//% block="Digital input"
+        digital_input
+    }		
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
@@ -49,7 +66,7 @@ namespace MuseIoT {
     //% blockId=muselab_set_arcgis
 	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|Sensor type %sensortype|Sensor ID %sensorid|Sensor reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string, sensorid: string, reading: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: arcgisSensorSelect, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
                 serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
