@@ -8,50 +8,22 @@ namespace MuseIoT {
         update
     }
 
-	enum ArcgisSensorSelect {
+	export enum ArcgisSensorSelect {
         //% block="Wind direction"
-        wind_direction = 1,
+        wind_direction,
         //% block="Wind speed"
-        winf_speed =2,
+        winf_speed,
 		//% block="Rain fall"
-        rain_fall=3,
+        rain_fall,
         //% block="PM 2.5"
-        pm_2_5=4,
+        pm_2_5,
 		//% block="Temperature sensor"
-        temperature_sensor=5,
+        temperature_sensor,
         //% block="Analog input"
-        analog_input=6,
+        analog_input,
 		//% block="Digital input"
-        digital_input=7
+        digital_input
     }
-
-	//%blockId=arcgisSensorSelect_conv 
-	//%block="%sensortype"
-	export function arcgisSensorSelect(sensortype : ArcgisSensorSelect): string {
-		switch(sensortype) {
-			case ArcgisSensorSelect.wind_direction: 
-				return "Wind direction";
-				break
-			case ArcgisSensorSelect.winf_speed:  
-				return "Wind speed";
-				break
-			case ArcgisSensorSelect.rain_fall: 
-				return "Rain fall";
-				break
-			case ArcgisSensorSelect.pm_2_5:  
-				return "PM 2.5";
-				break
-			case ArcgisSensorSelect.temperature_sensor: 
-				return "Temperature";
-				break
-			case ArcgisSensorSelect.analog_input:  
-				return "Analog input";
-				break
-			case ArcgisSensorSelect.digital_input:  
-				return "Digital input";
-				break
-		}
-	}	
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
@@ -92,9 +64,9 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|sensor_type %sensortype|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_type %sensortype|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, sensortype: string, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensorid: string, reading: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
                 serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
