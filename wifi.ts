@@ -6,14 +6,7 @@ namespace MuseIoT {
         add,
         //% block="Update"
         update
-    }
-	
-	export enum withOled {
-        //% block="with"
-        with,
-        //% block="without"
-        without
-    }
+    }	
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
@@ -54,7 +47,7 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|*servername %servername|*serviceid %featureserviceid|*layername %layername|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|servername* %servername|serviceid* %featureserviceid|layername* %layername|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
 	//% weight=59	
     export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
 		switch(arcgisfunction){
@@ -92,21 +85,11 @@ namespace MuseIoT {
 		
     }
 	
-    //%blockId=muselab_initialize_wifi_advanced
-    //%block="Initialize WiFi IoT Shield  %witholed|OLED feedback"
+    //%blockId=muselab_initialize_wifi_normal
+    //%block="Initialize WiFi IoT Shield"
 	//% weight=54	
-    export function initializeWifiAdvanced(witholed: withOled): void {
+    export function initializeWifiNormal(witholed: withOled): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
-		switch(witholed){
-			case withOled.with:
-				MuseOLED.init(32, 128)
-				serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-					MuseOLED.showString(serial.readLine())
-				})
-				break
-            case withOled.without:                         
-				break
-		}
     }
 	
 	// -------------- 5. Advanced Wifi ----------------
