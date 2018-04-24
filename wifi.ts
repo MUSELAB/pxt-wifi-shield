@@ -47,7 +47,7 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|servername* %servername|serviceid* %featureserviceid|layername* %layername|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|servername* %servername|serviceid* %featureserviceid|layername* %layername|x* %x|y* %y|sensorid %sensorid|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
 	//% weight=59	
     export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
 		switch(arcgisfunction){
