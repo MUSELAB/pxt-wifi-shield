@@ -39,7 +39,7 @@ namespace MuseIoT {
     }
 	
     //% blockId=muselab_set_ifttt
-	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2|value3 %value3"
+	//% block="Send IFTTT key* %key|event_name* %event|value1 %value1|value2 %value2|value3 %value3"
 	//% weight=60
 	//% blockGap=7		
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number, value3: number): void {
@@ -47,15 +47,15 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|servername* %servername|serviceid* %featureserviceid|layername* %layername|x* %x|y* %y|sensorid %sensorid|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|Sensor type %sensortype|Sensor ID %sensorid|Sensor reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
-                serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
             case arcgisFunction.update:
-                serial.writeLine("(AT+arcgis?arcgisfunction=update&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                serial.writeLine("(AT+arcgis?arcgisfunction=update&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&objectid=" + objectid +"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
 		}
     }
