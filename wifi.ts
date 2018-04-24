@@ -88,7 +88,7 @@ namespace MuseIoT {
     //%blockId=muselab_initialize_wifi_normal
     //%block="Initialize WiFi IoT Shield"
 	//% weight=54	
-    export function initializeWifiNormal(witholed: withOled): void {
+    export function initializeWifiNormal(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
     }
 	
