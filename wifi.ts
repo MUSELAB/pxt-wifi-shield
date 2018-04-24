@@ -8,20 +8,30 @@ namespace MuseIoT {
         update
     }
 	
+	export enum withOled {
+        //% block="with"
+        with,
+        //% block="without"
+        without
+    }
+	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
-    //%block="Initialize WiFi IoT Shield"
+    //%block="Initialize WiFi IoT Shield and OLED"
 	//% weight=90	
 	//% blockGap=7	
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
+		MuseOLED.init(32, 128)
+        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+			MuseOLED.showString(serial.readLine())
+		})
     }
 	
 	// -------------- 2. WiFi ----------------
     //% blockId=muselab_set_wifi
 	//% block="Set wifi to ssid %ssid| pwd %pwd"   
-	//% weight=80		
-	//% blockGap=7	
+	//% weight=80	
     export function setWifi(ssid: string, pwd: string): void {
         serial.writeLine("(AT+wifi?ssid="+ssid+"&pwd="+pwd+")"); 
     }
@@ -68,7 +78,8 @@ namespace MuseIoT {
 	
     //%blockId=muselab_start_server
     //%block="Start WiFi remote control"
-	//% weight=55	
+	//% weight=55
+	//% blockGap=7		
     export function startWebServer(): void {
 		flag = true
 		serial.writeLine("(AT+startWebServer)")
@@ -79,6 +90,23 @@ namespace MuseIoT {
 				break;
 		}
 		
+    }
+	
+    //%blockId=muselab_initialize_wifi_advanced
+    //%block="Initialize WiFi IoT Shield  %witholed|OLED feedback"
+	//% weight=54	
+    export function initializeWifiAdvanced(witholed: withOled): void {
+        serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
+		switch(witholed){
+			case withOled.with:
+				MuseOLED.init(32, 128)
+				serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+					MuseOLED.showString(serial.readLine())
+				})
+				break
+            case withOled.without:                         
+				break
+		}
     }
 	
 	// -------------- 5. Advanced Wifi ----------------
@@ -166,8 +194,17 @@ namespace MuseIoT {
     //%blockId=muselab_deep_sleep
     //%block="Set deep sleep %second| second"
 	//% weight=15	
+	//% blockGap=7	
     export function setDeepSleep(second: number): void {
         serial.writeLine("(AT+deepsleep?time="+second+")");
+    }	
+	
+	//%subcategory=More
+    //%blockId=muselab_forever_sleep
+    //%block="Soft trun off"
+	//% weight=14	
+    export function setTurnOff(): void {
+        serial.writeLine("(AT+deepsleep?time=0)");
     }	
 
 }
