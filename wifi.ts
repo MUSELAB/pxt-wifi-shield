@@ -10,19 +10,19 @@ namespace MuseIoT {
 
 	export enum arcgisSensorSelect {
         //% block="Wind direction"
-        wind_direction,
+        wind_direction = "Wind direction",
         //% block="Wind speed"
-        winf_speed,
+        winf_speed = "Wind speed",
 		//% block="Rain fall"
-        rain_fall,
+        rain_fall = "Rain fall",
         //% block="PM 2.5"
-        pm_2_5,
+        pm_2_5 = "PM 2.5",
 		//% block="Temperature sensor"
-        temperature_sensor,
+        temperature_sensor = "Tempeature",
         //% block="Analog input"
-        analog_input,
+        analog_input = "Analog input",
 		//% block="Digital input"
-        digital_input
+        digital_input = "Digital input"
     }		
 	
 	// -------------- 1. Initialization ----------------
@@ -64,7 +64,7 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|Sensor type %sensortype|Sensor ID %sensorid|Sensor reading %reading|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|sensor_type %sensortype|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
     export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: arcgisSensorSelect, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
