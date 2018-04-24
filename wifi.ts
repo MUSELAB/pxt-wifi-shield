@@ -8,7 +8,7 @@ namespace MuseIoT {
         update
     }
 
-	export enum ArcgisSensorSelect {
+	enum ArcgisSensorSelect {
         //% block="Wind direction"
         wind_direction = 1,
         //% block="Wind speed"
