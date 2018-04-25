@@ -66,7 +66,7 @@ namespace MuseIoT {
     //% blockId=muselab_set_arcgis
 	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_type %sensortype|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string, sensorid: string, reading: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string = "Temperature", sensorid: string = "1", reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
                 serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
