@@ -25,6 +25,17 @@ namespace MuseIoT {
         digital_input
     }
 	
+	export enum httpMethod {
+        //% block="GET"
+        GET,
+        //% block="POST"
+        POST,
+        //% block="PUT"
+        PUT,
+        //% block="DELETE"
+        DELETE
+    }
+	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
     //%block="Initialize WiFi IoT Shield and OLED"
@@ -110,6 +121,29 @@ namespace MuseIoT {
     }
 	
 	// -------------- 5. Advanced Wifi ----------------
+	
+	//%subcategory=More
+    //%blockId=muselab_generic_http
+    //% block="Send generic HTTP method %method| http://%url| header %header| body %body"
+    //% weight=45    
+    export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
+        let temp = ""
+        switch (method) {
+            case httpMethod.GET:
+                temp = "GET"
+                break
+            case httpMethod.POST:
+                temp = "POST"
+                break
+            case httpMethod.PUT:
+                temp = "PUT"
+                break
+            case httpMethod.DELETE:
+                temp = "DELETE"
+                break
+        }
+        serial.writeLine("(AT+http?method=" + temp + "&url=" + url + "&header=" + header + "&body=" + body + ")");
+    }
 	
 	//%subcategory=More
     //%blockId=muselab_muse_mqtt
