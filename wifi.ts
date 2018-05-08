@@ -7,12 +7,22 @@ namespace MuseIoT {
         //% block="Update"
         update
     }
-	
-	export enum withOled {
-        //% block="with"
-        with,
-        //% block="without"
-        without
+
+	export enum ArcgisSensorSelect {
+        //% block="Wind direction"
+        wind_direction,
+        //% block="Wind speed"
+        winf_speed,
+		//% block="Rain fall"
+        rain_fall,
+        //% block="PM 2.5"
+        pm_2_5,
+		//% block="Temperature sensor"
+        temperature_sensor,
+        //% block="Analog input"
+        analog_input,
+		//% block="Digital input"
+        digital_input
     }
 	
 	// -------------- 1. Initialization ----------------
@@ -46,7 +56,7 @@ namespace MuseIoT {
     }
 	
     //% blockId=muselab_set_ifttt
-	//% block="Send IFTTT key %key|event_name %event|value1 %value1|value2 %value2|value3 %value3"
+	//% block="Send IFTTT key* %key|event_name* %event|value1 %value1|value2 %value2|value3 %value3"
 	//% weight=60
 	//% blockGap=7		
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number, value3: number): void {
@@ -54,15 +64,15 @@ namespace MuseIoT {
     }
 
     //% blockId=muselab_set_arcgis
-	//% block="Send ArcGIS Online feature function %arcgisfunction|serviceid %featureserviceid|layername %layername|sensorid %sensorid|x %x|y %y|reading1 %reading1|reading2 %reading2|objectid(For update only) %objectid"
+	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_type %sensortype|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
 	//% weight=59	
-    export function sendArcgis(arcgisfunction: arcgisFunction, featureserviceid: string, layername: string, sensorid: string,  x: string, y: string, reading1: number, reading2: number, objectid: number): void {
+    export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
-                serial.writeLine("(AT+arcgis?arcgisfunction=add&featureserviceid="+featureserviceid+"&layername="+layername+"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                serial.writeLine("(AT+arcgis?arcgisfunction=add&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
             case arcgisFunction.update:
-                serial.writeLine("(AT+arcgis?arcgisfunction=update&featureserviceid="+featureserviceid+"&layername="+layername+"&objectid=" + objectid +"&reading1="+reading1+"&reading2="+reading2+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
+                serial.writeLine("(AT+arcgis?arcgisfunction=update&servername="+servername+"&featureserviceid="+featureserviceid+"&layername="+layername+"&objectid=" + objectid +"&reading="+reading+"&sensortype="+sensortype+"&sensorid="+sensorid+"&x="+x+"&y="+y+")"); 
                 break
 		}
     }
@@ -92,21 +102,11 @@ namespace MuseIoT {
 		
     }
 	
-    //%blockId=muselab_initialize_wifi_advanced
-    //%block="Initialize WiFi IoT Shield  %witholed|OLED feedback"
+    //%blockId=muselab_initialize_wifi_normal
+    //%block="Initialize WiFi IoT Shield"
 	//% weight=54	
-    export function initializeWifiAdvanced(witholed: withOled): void {
+    export function initializeWifiNormal(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
-		switch(witholed){
-			case withOled.with:
-				MuseOLED.init(32, 128)
-				serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-					MuseOLED.showString(serial.readLine())
-				})
-				break
-            case withOled.without:                         
-				break
-		}
     }
 	
 	// -------------- 5. Advanced Wifi ----------------
