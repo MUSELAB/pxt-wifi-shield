@@ -69,11 +69,11 @@ namespace MuseIoT {
 
 	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_thingspeak
-	//% block="Send ThingSpeak key %key| field1 %field1| field2 %field2"
+	//% block="Send ThingSpeak key %key|field1 %field1|field2 %field2|field3 %field3"
 	//% weight=70	
 	//% blockGap=7	
-    export function sendThingspeak(key: string, field1: number, field2: number): void {
-        serial.writeLine("(AT+thingspeak?key=" + key+"&field1="+field1+"&field2="+field2+")"); 
+    export function sendThingspeak(key: string, field1: number, field2: number, field3: number): void {
+        serial.writeLine("(AT+thingspeak?key=" + key+"&field1="+field1+"&field2="+field2+"&field3="+field3+")"); 
     }
 	
     //% blockId=muselab_set_ifttt
@@ -157,7 +157,7 @@ namespace MuseIoT {
 	
 	//%subcategory=More
     //% blockId="muselab_generic_http_return" 
-    //% block="HTTP response (array)"
+    //% block="HTTP response (string array)"
     //% weight=45
     
     export function getGenericHttpReturn(): Array<string> {
