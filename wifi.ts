@@ -69,7 +69,7 @@ namespace MuseIoT {
 
 	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_thingspeak
-	//% block="Send ThingSpeak key %key|field1 %field1|field2 %field2|field3 %field3"
+	//% block="Send ThingSpeak key* %key|field1 %field1|field2 %field2|field3 %field3"
 	//% weight=70	
 	//% blockGap=7	
     export function sendThingspeak(key: string, field1: number, field2: number, field3: number): void {
@@ -136,6 +136,7 @@ namespace MuseIoT {
     //%blockId=muselab_generic_http
     //% block="Send generic HTTP method %method| http://%url| header %header| body %body"
     //% weight=46   
+	//% blockGap=7	
     export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
         let temp = ""
         switch (method) {
