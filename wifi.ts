@@ -1,6 +1,6 @@
 namespace MuseIoT {
 	let flag = true;
-	let httpReturnArray: string[] = []
+	let httpReturnArray: String[] = []
 	
 	export enum arcgisFunction {
         //% block="Add"
