@@ -1,6 +1,6 @@
 namespace MuseIoT {
 	let flag = true;
-	let httpReturnArray: String[] = []
+	let httpReturnArray: string[] = []
 	
 	export enum arcgisFunction {
         //% block="Add"
@@ -160,7 +160,7 @@ namespace MuseIoT {
     //% block="HTTP response (array)"
     //% weight=45
     
-    export function getGenericHttpReturn(): Array<String> {
+    export function getGenericHttpReturn(): Array<string> {
         return httpReturnArray;
     }
 	
