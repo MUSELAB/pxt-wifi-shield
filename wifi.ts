@@ -1,5 +1,6 @@
 namespace MuseIoT {
 	let flag = true;
+	let httpReturnArray: string[] = []
 	
 	export enum arcgisFunction {
         //% block="Add"
@@ -42,11 +43,20 @@ namespace MuseIoT {
 	//% weight=90	
 	//% blockGap=7	
     export function initializeWifi(): void {
-        serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
-		MuseOLED.init(32, 128)
+        serial.redirect(SerialPin.P16, SerialPin.P8, BaudRate.BaudRate115200);
+        MuseOLED.init(32, 128)
+        
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-			MuseOLED.showString(serial.readLine())
-		})
+            let temp = serial.readLine()
+            let tempDeleteFirstCharacter = ""
+
+            if (temp.charAt(0).compare("#") == 0) {
+                tempDeleteFirstCharacter = temp.substr(1, 20)
+                httpReturnArray.push(tempDeleteFirstCharacter)
+            }else{
+                MuseOLED.showString(temp)
+            }
+        })
     }
 	
 	// -------------- 2. WiFi ----------------
@@ -125,7 +135,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_generic_http
     //% block="Send generic HTTP method %method| http://%url| header %header| body %body"
-    //% weight=45    
+    //% weight=46   
     export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
         let temp = ""
         switch (method) {
@@ -143,6 +153,15 @@ namespace MuseIoT {
                 break
         }
         serial.writeLine("(AT+http?method=" + temp + "&url=" + url + "&header=" + header + "&body=" + body + ")");
+    }
+	
+	//%subcategory=More
+    //% blockId="muselab_generic_http_return" 
+    //% block="HTTP response (array)"
+    //% weight=45
+    
+    export function getGenericHttpReturn(): Array<String> {
+        return httpReturnArray;
     }
 	
 	//%subcategory=More
