@@ -138,7 +138,7 @@ namespace MuseIoT {
     //% weight=46   
 	//% blockGap=7	
     export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
-		httpReturnArray: string[] = []
+		httpReturnArray = []
         let temp = ""
         switch (method) {
             case httpMethod.GET:
