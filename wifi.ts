@@ -53,6 +53,8 @@ namespace MuseIoT {
             if (temp.charAt(0).compare("#") == 0) {
                 tempDeleteFirstCharacter = temp.substr(1, 20)
                 httpReturnArray.push(tempDeleteFirstCharacter)
+            }else if (temp.charAt(0).compare("*") == 0) {
+                pins.digitalWritePin(DigitalPin.P12, temp.substr(5, 6))
             }else{
                 MuseOLED.showString(temp)
             }
