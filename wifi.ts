@@ -63,17 +63,19 @@ namespace MuseIoT {
 					pin = parseInt(temp.substr(3, 2))
 					intensity = parseInt(temp.substr(2, 1))					
 					pins.digitalWritePin(pin, intensity)
+					basic.showIcon(IconNames.Heart)
 				}else if (mode == "1"){ //pwm
 					pin = parseInt(temp.substr(5, 2))
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,1023) 
 					pins.analogWritePin(pin, intensity)
+					basic.showIcon(IconNames.Meh)
 				}else if (mode == "2"){ //servo
 					pin = parseInt(temp.substr(5, 2))
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
 					pins.servoWritePin(pin, parseInt(temp.substr(3, 3)))
+					basic.showIcon(IconNames.Silly)
 				}
-				
-                pins.digitalWritePin(DigitalPin.P12, parseInt(temp.substr(5, 6)))
+				                
             }else{
                 MuseOLED.showString(temp)
             }
