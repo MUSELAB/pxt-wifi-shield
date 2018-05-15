@@ -73,8 +73,8 @@ namespace MuseIoT {
 					pins.servoWritePin(pin, intensity)
 				}
 				
-				basic.showNumber(pin)
-				basic.showNumber(intensity)
+				//basic.showNumber(pin)
+				//basic.showNumber(intensity)
 				                
             }else{
                 MuseOLED.showString(temp)
