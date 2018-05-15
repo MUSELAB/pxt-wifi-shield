@@ -59,15 +59,15 @@ namespace MuseIoT {
 				let intensity = 0
 				let pin = 0
 
-				if (mode == 0){	//digital
+				if (mode == "0"){	//digital
 					pin = parseInt(temp.substr(3, 2))
 					intensity = parseInt(temp.substr(2, 1))					
 					pins.digitalWritePin(pin, intensity)
-				}else if (mode == 1){ //pwm
+				}else if (mode == "1"){ //pwm
 					pin = parseInt(temp.substr(5, 2))
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,1023) 
 					pins.analogWritePin(pin, intensity)
-				}else if (mode == 2){ //servo
+				}else if (mode == "2"){ //servo
 					pin = parseInt(temp.substr(5, 2))
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
 					pins.servoWritePin(pin, parseInt(temp.substr(3, 3)))
