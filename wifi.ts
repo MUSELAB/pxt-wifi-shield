@@ -39,7 +39,7 @@ namespace MuseIoT {
 	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
-    //%block="Initialize WiFi IoT Shield and OLED"
+    //%block="Initialize Muselab WiFi Booster and OLED"
 	//% weight=90	
 	//% blockGap=7	
     export function initializeWifi(): void {
@@ -147,7 +147,7 @@ namespace MuseIoT {
     }
 	
     //%blockId=muselab_initialize_wifi_normal
-    //%block="Initialize WiFi IoT Shield"
+    //%block="Initialize Muselab WiFi Booster"
 	//% weight=54	
     export function initializeWifiNormal(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
