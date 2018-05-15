@@ -54,6 +54,26 @@ namespace MuseIoT {
                 tempDeleteFirstCharacter = temp.substr(1, 20)
                 httpReturnArray.push(tempDeleteFirstCharacter)
             }else if (temp.charAt(0).compare("*") == 0) {
+				
+				let mode = temp.substr(2, 1)
+				let intensity = 0
+				let pin = 0
+
+				if (mode == "digital"){	
+					pin = parseInt(temp.substr(4, 2))
+					intensity = parseInt(temp.substr(3, 1))
+					
+					pins.digitalWritePin(pin, intensity)
+				}else if (mode == "pwm"){
+					pin = parseInt(temp.substr(6, 2))
+					intensity = pins.map(parseInt(temp.substr(3, 3)),100,900,0,1023) 
+					pins.analogWritePin(pin, intensity)
+				}else if (mode == "servo"){
+					pin = parseInt(temp.substr(6, 2))
+					intensity = pins.map(parseInt(temp.substr(3, 3)),100,900,0,180) 
+					pins.servoWritePin(pin, parseInt(temp.substr(3, 3)))
+				}
+				
                 pins.digitalWritePin(DigitalPin.P12, parseInt(temp.substr(5, 6)))
             }else{
                 MuseOLED.showString(temp)
