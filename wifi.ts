@@ -55,22 +55,21 @@ namespace MuseIoT {
                 httpReturnArray.push(tempDeleteFirstCharacter)
             }else if (temp.charAt(0).compare("*") == 0) {
 				
-				let mode = temp.substr(2, 1)
+				let mode = temp.substr(1, 1)
 				let intensity = 0
 				let pin = 0
 
-				if (mode == "digital"){	
-					pin = parseInt(temp.substr(4, 2))
-					intensity = parseInt(temp.substr(3, 1))
-					
+				if (mode == 0){	//digital
+					pin = parseInt(temp.substr(3, 2))
+					intensity = parseInt(temp.substr(2, 1))					
 					pins.digitalWritePin(pin, intensity)
-				}else if (mode == "pwm"){
-					pin = parseInt(temp.substr(6, 2))
-					intensity = pins.map(parseInt(temp.substr(3, 3)),100,900,0,1023) 
+				}else if (mode == 1){ //pwm
+					pin = parseInt(temp.substr(5, 2))
+					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,1023) 
 					pins.analogWritePin(pin, intensity)
-				}else if (mode == "servo"){
-					pin = parseInt(temp.substr(6, 2))
-					intensity = pins.map(parseInt(temp.substr(3, 3)),100,900,0,180) 
+				}else if (mode == 2){ //servo
+					pin = parseInt(temp.substr(5, 2))
+					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
 					pins.servoWritePin(pin, parseInt(temp.substr(3, 3)))
 				}
 				
