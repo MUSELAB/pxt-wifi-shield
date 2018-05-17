@@ -55,22 +55,56 @@ namespace MuseIoT {
                 httpReturnArray.push(tempDeleteFirstCharacter)
             }else if (temp.charAt(0).compare("*") == 0) {
 				
+				// For digital, pwm, servo
 				let mode = temp.substr(1, 1)
 				let intensity = 0
 				let pin = 0
+				
+				// For motor and car
+				let motor = 0
+				let direction = 0				
 
 				if (mode == "0"){	//digital
 					pin = parseInt(temp.substr(3, 2))
-					intensity = parseInt(temp.substr(2, 1))					
+					intensity = parseInt(temp.substr(2, 1))	
+					
 					pins.digitalWritePin(pin, intensity)
 				}else if (mode == "1"){ //pwm
 					pin = parseInt(temp.substr(5, 2))
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,1023) 
+					
 					pins.analogWritePin(pin, intensity)					
 				}else if (mode == "2"){ //servo
 					pin = parseInt(temp.substr(5, 2))
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
+					
 					pins.servoWritePin(pin, intensity)
+				}else if (mode == "3"){ //motor
+					motor = parseInt(temp.substr(6, 1))
+					direction = parseInt(temp.substr(5, 1))									
+					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
+					
+					MuseRobotic.motorOn(motor, direction, intensity)
+				}else if (mode == "4"){ //car
+					direction = parseInt(temp.substr(5, 1))									
+					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
+					
+					if(direction == 0){
+						MuseRobotic.motorOn(0, 0, intensity)
+						MuseRobotic.motorOn(1, 0, intensity)
+					}else if (direction == 1){
+						MuseRobotic.motorOn(0, 1, intensity)
+						MuseRobotic.motorOn(1, 1, intensity)
+					}else if (direction == 2){
+						MuseRobotic.motorOn(0, 1, intensity)
+						MuseRobotic.motorOn(1, 0, intensity)
+					}else if (direction == 3){
+						MuseRobotic.motorOn(0, 0, intensity)
+						MuseRobotic.motorOn(1, 1, intensity)
+					}else if (direction == 4){
+						MuseRobotic.motorOn(0, 0, intensity)
+						MuseRobotic.motorOn(1, 0, intensity)
+					}
 				}
 				
 				//basic.showNumber(pin)
