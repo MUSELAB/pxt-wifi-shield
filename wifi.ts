@@ -97,9 +97,9 @@ namespace MuseIoT {
 						MuseRobotic.motorOn(1, 1, intensity)
 					}else if (direction == 2){
 						MuseRobotic.motorOn(0, 1, intensity)
-						MuseRobotic.motorOn(1, 0, intensity)
+						MuseRobotic.motorOn(1, 0, 0)
 					}else if (direction == 3){
-						MuseRobotic.motorOn(0, 0, intensity)
+						MuseRobotic.motorOn(0, 0, 0)
 						MuseRobotic.motorOn(1, 1, intensity)
 					}else if (direction == 4){
 						MuseRobotic.motorOn(0, 0, intensity)
