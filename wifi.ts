@@ -1,6 +1,8 @@
 namespace MuseIoT {
 	let flag = true;
 	let httpReturnArray: string[] = []
+	let inbound1 = ""
+	let inbound2 = ""
 	
 	export enum arcgisFunction {
         //% block="Add"
@@ -48,7 +50,7 @@ namespace MuseIoT {
         
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             let temp = serial.readLine()
-            let tempDeleteFirstCharacter = ""
+            let tempDeleteFirstCharacter = ""			
 
             if (temp.charAt(0).compare("#") == 0) {
                 tempDeleteFirstCharacter = temp.substr(1, 20)
@@ -110,7 +112,17 @@ namespace MuseIoT {
 				//basic.showNumber(pin)
 				//basic.showNumber(intensity)
 				                
-            }else{
+            }else if (temp.charAt(0).compare("$") == 0) {
+				let no = parseInt(temp.substr(1, 1))
+				let string_word = temp.substr(2, 20)
+				
+				if(no == 1){
+					inbound1 = string_word
+				}else if (no == 2){
+					inbound2 = string_word
+				}
+				
+			}else{
                 MuseOLED.showString(temp)
             }
         })
@@ -192,7 +204,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_generic_http
     //% block="Send generic HTTP method %method| http://%url| header %header| body %body"
-    //% weight=46   
+    //% weight=48  
 	//% blockGap=7	
     export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
 		httpReturnArray = []
@@ -217,10 +229,30 @@ namespace MuseIoT {
 	//%subcategory=More
     //% blockId="muselab_generic_http_return" 
     //% block="HTTP response (string array)"
-    //% weight=45
+    //% weight=47
+	//% blockGap=7	
     
     export function getGenericHttpReturn(): Array<string> {
         return httpReturnArray;
+    }
+	
+	//%subcategory=More
+    //% blockId="muselab_http_inbound1" 
+    //% block="HTTP inbound1"
+    //% weight=46
+	//% blockGap=7	
+    
+    export function getInbound1(): string {
+        return inbound1;
+    }
+	
+	//%subcategory=More
+    //% blockId="muselab_http_inbound2" 
+    //% block="HTTP inbound2"
+    //% weight=45
+    
+    export function getInbound2(): string {
+        return inbound2;
     }
 	
 	//%subcategory=More
