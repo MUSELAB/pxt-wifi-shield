@@ -257,15 +257,16 @@ namespace MuseIoT {
 	//% blockGap=7	
     
     export function getInbound(no: bound_no): string {
-		
-		switch (method) {
+        let temp = ""
+        switch (no) {
             case bound_no.bound1:
-                return inbound1;
+                temp = inbound1;
                 break
             case bound_no.bound2:
-                return inbound2;
+                temp = inbound2;
                 break
-        }  
+        }
+        return temp;
     }
 
 	//%subcategory=More
@@ -275,7 +276,7 @@ namespace MuseIoT {
 	//% blockGap=7		
     export function setOutbound(no: bound_no, wordinds: string): void {
 		
-		switch (method) {
+		switch (no) {
             case bound_no.bound1:
                 outbound1 = wordinds;
                 break
