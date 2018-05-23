@@ -211,7 +211,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_generic_http
     //% block="Send generic HTTP method %method| http://%url| header %header| body %body"
-    //% weight=48  
+    //% weight=50
 	//% blockGap=7	
     export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
 		httpReturnArray = []
@@ -236,7 +236,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //% blockId="muselab_generic_http_return" 
     //% block="HTTP response (string array)"
-    //% weight=47
+    //% weight=49
 	//% blockGap=7	
     
     export function getGenericHttpReturn(): Array<string> {
@@ -246,7 +246,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //% blockId="muselab_http_inbound1" 
     //% block="HTTP inbound1"
-    //% weight=46
+    //% weight=48
 	//% blockGap=7	
     
     export function getInbound1(): string {
@@ -256,10 +256,28 @@ namespace MuseIoT {
 	//%subcategory=More
     //% blockId="muselab_http_inbound2" 
     //% block="HTTP inbound2"
-    //% weight=45
+    //% weight=47
+	//% blockGap=7	
     
     export function getInbound2(): string {
         return inbound2;
+    }
+	
+	//%subcategory=More
+    //%blockId=muselab__http_outbound1
+    //%block="Set HTTP outbound1 %wordinds"
+	//% weight=46	
+	//% blockGap=7		
+    export function setOutbound1(wordinds: string): void {
+        outbound1 = wordinds;
+    }
+	
+	//%subcategory=More
+    //%blockId=muselab__http_outbound2
+    //%block="Set HTTP outbound2 %wordinds"
+	//% weight=45		
+    export function setOutbound2(wordinds: string): void {
+        outbound2 = wordinds;
     }
 	
 	//%subcategory=More
