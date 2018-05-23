@@ -41,6 +41,13 @@ namespace MuseIoT {
         DELETE
     }
 	
+	export enum bound_no {
+        //% block="1"
+        bound1,
+        //% block="2"
+        bound2
+    }
+	
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
     //%block="Initialize Muselab WiFi Booster and OLED"
@@ -244,40 +251,49 @@ namespace MuseIoT {
     }
 	
 	//%subcategory=More
-    //% blockId="muselab_http_inbound1" 
-    //% block="HTTP inbound1"
+    //% blockId="muselab_http_inbound" 
+    //% block="HTTP inbound %no"
     //% weight=48
 	//% blockGap=7	
     
-    export function getInbound1(): string {
-        return inbound1;
+    export function getInbound(no: bound_no): string {
+		
+		switch (method) {
+            case bound_no.bound1:
+                return inbound1;
+                break
+            case bound_no.bound2:
+                return inbound2;
+                break
+        }  
+    }
+
+	//%subcategory=More
+    //%blockId=muselab_http_outbound1
+    //%block="Set HTTP outbound %no| %wordinds"
+	//% weight=47	
+	//% blockGap=7		
+    export function setOutbound(no: bound_no, wordinds: string): void {
+		
+		switch (method) {
+            case bound_no.bound1:
+                outbound1 = wordinds;
+                break
+            case bound_no.bound2:
+                outbound2 = wordinds;
+                break
+        }
     }
 	
 	//%subcategory=More
-    //% blockId="muselab_http_inbound2" 
-    //% block="HTTP inbound2"
-    //% weight=47
+    //% blockId="muselab_tostring" 
+    //% block="Number %no| to string"
+    //% weight=46
 	//% blockGap=7	
     
-    export function getInbound2(): string {
-        return inbound2;
-    }
-	
-	//%subcategory=More
-    //%blockId=muselab__http_outbound1
-    //%block="Set HTTP outbound1 %wordinds"
-	//% weight=46	
-	//% blockGap=7		
-    export function setOutbound1(wordinds: string): void {
-        outbound1 = wordinds;
-    }
-	
-	//%subcategory=More
-    //%blockId=muselab__http_outbound2
-    //%block="Set HTTP outbound2 %wordinds"
-	//% weight=45		
-    export function setOutbound2(wordinds: string): void {
-        outbound2 = wordinds;
+    export function changetostring(no: number): string {
+		
+		return no.toString();
     }
 	
 	//%subcategory=More
