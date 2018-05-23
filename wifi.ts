@@ -124,16 +124,11 @@ namespace MuseIoT {
             }else if (temp.charAt(0).compare("$") == 0) {
 				let no = parseInt(temp.substr(1, 1))
 				let string_word = temp.substr(2, 20)
-				
-				basic.showNumber(no)
-				basic.showString(string_word)
 
 				if(no == 1){
 					inbound1 = string_word
-					basic.showIcon(IconNames.Heart)
 				}else if (no == 2){
 					inbound2 = string_word
-					basic.showIcon(IconNames.Giraffe)
 				}
 				
 			}else{
@@ -288,9 +283,8 @@ namespace MuseIoT {
 	
 	//%subcategory=More
     //% blockId="muselab_tostring" 
-    //% block="Number %no| to string"
+    //% block="Convert number %no|to string"
     //% weight=46
-	//% blockGap=7	
     
     export function changetostring(no: number): string {
 		
