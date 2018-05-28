@@ -73,7 +73,13 @@ namespace MuseIoT {
 				
 				// For motor and car
 				let motor = 0
-				let direction = 0				
+				let direction = 0	
+
+				// For control 2 motor same time mode
+				let direction1 = 0
+				let direction2 = 0	
+				let intensity1 = 0
+				let intensity2 = 0	
 
 				if (mode == "0"){	//digital
 					pin = parseInt(temp.substr(3, 2))
@@ -93,12 +99,12 @@ namespace MuseIoT {
 				}else if (mode == "3"){ //motor
 					motor = parseInt(temp.substr(6, 1))
 					direction = parseInt(temp.substr(5, 1))									
-					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
+					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,100) 
 					
 					MuseRobotic.motorOn(motor, direction, intensity)
 				}else if (mode == "4"){ //car
 					direction = parseInt(temp.substr(5, 1))									
-					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
+					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,100) 
 					
 					if(direction == 0){
 						MuseRobotic.motorOn(0, 0, intensity)
@@ -116,6 +122,15 @@ namespace MuseIoT {
 						MuseRobotic.motorOn(0, 0, intensity)
 						MuseRobotic.motorOn(1, 0, intensity)
 					}
+				}else if (mode == "5"){ //motor_2
+					direction1 = parseInt(temp.substr(5, 1))									
+					intensity1 = pins.map(parseInt(temp.substr(2, 3)),100,900,0,100) 
+					direction2 = parseInt(temp.substr(9, 1))									
+					intensity2 = pins.map(parseInt(temp.substr(6, 3)),100,900,0,100) 
+					
+					MuseRobotic.motorOn(0, direction1, intensity1)
+					MuseRobotic.motorOn(1, direction2, intensity2)
+					
 				}
 				
 				//basic.showNumber(pin)
