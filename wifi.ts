@@ -101,26 +101,26 @@ namespace MuseIoT {
 					direction = parseInt(temp.substr(5, 1))									
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,100) 
 					
-					MuseRobotic.motorOn(motor, direction, intensity)
+					MuseRover.motorOn(motor, direction, intensity)
 				}else if (mode == "4"){ //car
 					direction = parseInt(temp.substr(5, 1))									
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,100) 
 					
 					if(direction == 0){
-						MuseRobotic.motorOn(0, 0, intensity)
-						MuseRobotic.motorOn(1, 0, intensity)
+						MuseRover.motorOn(0, 0, intensity)
+						MuseRover.motorOn(1, 0, intensity)
 					}else if (direction == 1){
-						MuseRobotic.motorOn(0, 1, intensity)
-						MuseRobotic.motorOn(1, 1, intensity)
+						MuseRover.motorOn(0, 1, intensity)
+						MuseRover.motorOn(1, 1, intensity)
 					}else if (direction == 2){
-						MuseRobotic.motorOn(0, 1, intensity)
-						MuseRobotic.motorOn(1, 0, 0)
+						MuseRover.motorOn(0, 1, intensity)
+						MuseRover.motorOn(1, 0, 0)
 					}else if (direction == 3){
-						MuseRobotic.motorOn(0, 0, 0)
-						MuseRobotic.motorOn(1, 1, intensity)
+						MuseRover.motorOn(0, 0, 0)
+						MuseRover.motorOn(1, 1, intensity)
 					}else if (direction == 4){
-						MuseRobotic.motorOn(0, 0, intensity)
-						MuseRobotic.motorOn(1, 0, intensity)
+						MuseRover.motorOn(0, 0, intensity)
+						MuseRover.motorOn(1, 0, intensity)
 					}
 				}else if (mode == "5"){ //motor_2
 					direction1 = parseInt(temp.substr(5, 1))									
@@ -128,8 +128,8 @@ namespace MuseIoT {
 					direction2 = parseInt(temp.substr(9, 1))									
 					intensity2 = pins.map(parseInt(temp.substr(6, 3)),100,900,0,100) 
 					
-					MuseRobotic.motorOn(0, direction1, intensity1)
-					MuseRobotic.motorOn(1, direction2, intensity2)
+					MuseRover.motorOn(0, direction1, intensity1)
+					MuseRover.motorOn(1, direction2, intensity2)
 					
 				}
 				
