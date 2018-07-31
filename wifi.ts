@@ -150,6 +150,8 @@ namespace MuseIoT {
                 MuseOLED.showString(temp)
             }
         })
+		
+		basic.pause(5000);
     }
 	
 	// -------------- 2. WiFi ----------------
