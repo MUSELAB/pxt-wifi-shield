@@ -164,7 +164,7 @@ namespace MuseIoT {
 
 	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_thingspeak
-	//% block="Send ThingSpeak key* %key|field1 %field1|field2 %field2|field3 %field3"
+	//% block="Send 'data.muselab.cc' key* %key|field1 %field1|field2 %field2|field3 %field3"
 	//% weight=70	
 	//% blockGap=7	
     export function sendThingspeak(key: string, field1: number, field2: number, field3: number): void {
