@@ -1,6 +1,6 @@
 {
     "name": "pxt-muselab",
-    "version": "1.8.11",
+    "version": "1.8.12",
     "description": "Blocks to simplify using muselab products in PXT",
     "license": "MIT",
     "dependencies": {
@@ -8,7 +8,7 @@
 		"pxt-muselab-plugin": "github:muselab/pxt-robotic-shield#v1.0.1",
 		"SSD1306_OLED": "github:muselab/pxt-muselab-oled",
 		"pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
-		"pxt-muse21": "github:muselab/pxt-muse21#v0.0.6"
+		"pxt-muse21": "github:muselab/pxt-muse21#v0.0.7"
 		
     },
     "files": [
