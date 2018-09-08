@@ -568,8 +568,9 @@ namespace MuseIoT {
     //%blockId=get_hk_weather_condition
     //%block="Get HK Weather Condition"
 	//% weight=11
-    export function getHKwCond(): void {
-        serial.writeLine("(AT+http?method=GET&url=api.muselab.hk/hk/conditions/index.php)");
+    export function getHKwCond(): string {
+        let get_string = "api.muselab.hk/hk/conditions/index.php";
+        return get_string;
     }	
 
 }
