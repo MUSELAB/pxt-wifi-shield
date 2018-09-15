@@ -580,8 +580,9 @@ namespace MuseIoT {
     //% weight=10	
     export function sendEmail(address: string, message: string): void {
 		httpReturnArray = []
+        let header = "Content-Type: application/x-www-form-urlencoded";
         let body = "toaddr=" + address + "&subject=MuseLab+Booster" + "&msg=" + message;
-        serial.writeLine("(AT+http?method=" + "POST" + "&url=" + apiurlemail + "&header=" + "" + "&body=" + body + ")");
+        serial.writeLine("(AT+http?method=" + "POST" + "&url=" + apiurlemail + "&header=" + header + "&body=" + body + ")");
     }
 
 }
