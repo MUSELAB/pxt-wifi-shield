@@ -7,6 +7,7 @@ namespace MuseIoT {
 	let outbound2 = ""
     let apiurlhk = "api.muselab.hk/hk/?id="
     let apiurlsg = "api.muselab.hk/sg/?id="
+    let apiurlemail = "api.muselab.hk/index.php"
 	
 	export enum arcgisFunction {
         //% block="Add"
@@ -571,6 +572,16 @@ namespace MuseIoT {
     export function getHKwCond(): string {
         let get_string = "api.muselab.hk/hk/conditions/index.php";
         return get_string;
-    }	
+    }
+
+    //%subcategory=More
+    //%blockId=send_email
+    //% block="Send email to: %address| message: %message"
+    //% weight=10	
+    export function sendEmail(address: string, message: string): void {
+		httpReturnArray = []
+        let body = "toaddr=" + address + "&subject=MuseLab+Booster" + "&msg=" + message;
+        serial.writeLine("(AT+http?method=" + "POST" + "&url=" + apiurlemail + "&header=" + "" + "&body=" + body + ")");
+    }
 
 }
