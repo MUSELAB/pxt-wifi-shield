@@ -5,6 +5,8 @@ namespace MuseIoT {
 	let inbound2 = ""
 	let outbound1 = ""
 	let outbound2 = ""
+    let emailSessionKey = 0
+    let emailCounter = 200
 	
 	export enum arcgisFunction {
         //% block="Add"
@@ -152,6 +154,7 @@ namespace MuseIoT {
         })
 		
 		basic.pause(5000);
+        emailSessionKey = Math.random(10000)*Math.random(100)-Math.random(10000);
     }
 	
 	// -------------- 2. WiFi ----------------
@@ -422,7 +425,20 @@ namespace MuseIoT {
 		let url = "api.muselab.hk/email/index_2.php"
         let body = "{ \"toaddr\" : \"" + address + "\", \"subject\" : \"" + titel + "\", \"msg\" : \"" + message + "\" }";
         let header = "Content-Type:application/json";
-        serial.writeLine("(AT+http?method=POST&url=" + url + "&header=" + header + "&body=" + body + ")");
+        if ( emailCounter <= 1) {
+            if ( emailSessionKey != 0 ) {
+                serial.writeLine("(AT+http?method=POST&url=" + url + "&header=" + header + "&body=" + body + ")");
+                emailCounter = 10000;
+            }
+        }
     }
 
+    //%subcategory=More
+    //%blockId=emailCountdown
+    //%block="Email counter reset"
+	//% weight=12	
+    export function emailCountdown(): number {
+        emailCounter--;
+        return emailCounter;
+    }
 }
