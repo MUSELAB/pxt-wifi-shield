@@ -420,8 +420,8 @@ namespace MuseIoT {
     export function sendEmail(address: string, titel: string, message: string): void {
 		httpReturnArray = []
 		let url = "api.muselab.hk/email/index_2.php"
-        let body = "{ toaddr : " + address + ", subject : " + titel + ", msg : " + message + " }";
-        let header = "";
+        let body = "{toaddr:" + address + ", subject:" + titel + ", msg:" + message + "}";
+        let header = "content-type:application/json";
         serial.writeLine("(AT+http?method=POST&url=" + url + "&header=" + header + "&body=" + body + ")");
     }
 
