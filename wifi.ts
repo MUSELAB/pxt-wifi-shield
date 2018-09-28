@@ -6,7 +6,7 @@ namespace MuseIoT {
 	let outbound1 = ""
 	let outbound2 = ""
     let emailSessionKey = 0
-    let emailCounter = 50
+    let emailCounter = 100
 	
 	export enum arcgisFunction {
         //% block="Add"
@@ -428,7 +428,7 @@ namespace MuseIoT {
         if ( emailCounter <= 1) {
             if ( emailSessionKey != 0 ) {
                 serial.writeLine("(AT+http?method=POST&url=" + url + "&header=" + header + "&body=" + body + ")");
-                emailCounter = 1000;
+                emailCounter = 1500;
             }
         }
     }
