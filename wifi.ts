@@ -428,7 +428,7 @@ namespace MuseIoT {
         if ( emailCounter <= 1) {
             if ( emailSessionKey != 0 ) {
                 serial.writeLine("(AT+http?method=POST&url=" + url + "&header=" + header + "&body=" + body + ")");
-                emailCounter = 15000;
+                emailCounter = 1200;
             }
         }
     }
