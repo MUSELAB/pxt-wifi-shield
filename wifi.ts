@@ -413,4 +413,16 @@ namespace MuseIoT {
         serial.writeLine("(AT+deepsleep?time=0)");
     }
 
+    //%subcategory=More
+    //%blockId=send_email
+    //% block="Send email to %address| subject %titel| message %message"
+    //% weight=13	
+    export function sendEmail(address: string, titel: string, message: string): void {
+		httpReturnArray = []
+		let url = "api.muselab.hk/email/index_2.php"
+        let body = "{ toaddr : " + address + ", subject : " + titel + ", msg : " + message + " }";
+        let header = "";
+        serial.writeLine("(AT+http?method=POST&url=" + url + "&header=" + header + "&body=" + body + ")");
+    }
+
 }
