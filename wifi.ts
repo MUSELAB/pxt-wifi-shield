@@ -173,11 +173,11 @@ namespace MuseIoT {
 	
 	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_musespeak
-	//% block="Send data.muselab.cc key* %key|field1 %field1|field2 %field2|field3 %field3"
+	//% block="Send data.muselab.cc key* %key|field1 %field1|field2 %field2|field3 %field3|field4 %field4|field5 %field5|field6 %field6"
 	//% weight=65	
 	//% blockGap=7	
-    export function sendMusespeak(key: string, field1: number, field2: number, field3:number): void {        
-		serial.writeLine("(AT+http?method=GET&url=18.188.188.94:3000/update?key="+ key +"&field1=" + field1 + "&field2="+ field2 +"&field3="+ field3+"&field4=0" + "&header=&body=)");
+    export function sendMusespeak(key: string, field1: number, field2: number, field3:number,field4: number,field5: number,field6: number): void {        
+		serial.writeLine("(AT+http?method=GET&url=18.188.188.94:3000/update?key="+ key +"&field1=" + field1 + "&field2="+ field2 +"&field3="+ field3+"&field4="+ field4+"&field5="+ field5+ "&field6="+ field6+"&field7=0" + "&header=&body=)");
     }
 	
     //% blockId=muselab_set_ifttt
