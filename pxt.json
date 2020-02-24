@@ -1,6 +1,6 @@
 {
     "name": "pxt-muselab",
-    "version": "1.8.46",
+    "version": "1.8.47",
     "description": "Blocks to simplify using muselab products in PXT",
     "license": "MIT",
     "dependencies": {
