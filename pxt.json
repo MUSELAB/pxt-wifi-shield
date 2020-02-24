@@ -9,7 +9,7 @@
 		"pxt-muselab-city": "github:muselab/pxt-muselab-city#v1.2.6",
 		"SSD1306_OLED": "github:muselab/pxt-muselab-oled#v1.1.1",
 		"pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
-		"pxt-muse21": "github:muselab/pxt-muse21#v0.1.1"
+		"pxt-muse21": "github:muselab/pxt-muse21#v0.1.2"
 		
     },
     "files": [
