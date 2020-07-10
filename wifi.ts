@@ -82,22 +82,62 @@ namespace MuseIoT {
 				let intensity2 = 0	
 
 				if (mode == "0"){	//digital
-					pin = parseInt(temp.substr(3, 2))
-					intensity = parseInt(temp.substr(2, 1))	
+					pin = parseInt(temp.substr(3, 2))-7
+					intensity = parseInt(temp.substr(2, 1))
+	                switch (pin) {
+						case 0:
+						     pins.digitalWritePin(DigitalPin.P0, intensity);
+                             break
+                        case 1:
+                             pins.digitalWritePin(DigitalPin.P1, intensity);
+                             break
+                        case 2:
+                             pins.digitalWritePin(DigitalPin.P2, intensity);
+                             break
+                        case 12:
+                             pins.digitalWritePin(DigitalPin.P12, intensity);
+                             break
+                        }
 					
-					pins.digitalWritePin(pin, intensity)
+					
 				}else if (mode == "1"){ //pwm
-					pin = parseInt(temp.substr(5, 2))
+					pin = parseInt(temp.substr(5, 2))-7
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,1023) 
-					
-					pins.analogWritePin(pin, intensity)					
+	                switch (pin) {
+						case 0:
+						     pins.analogWritePin(AnalogPin.P0, intensity);
+                             break
+                        case 1:
+                             pins.analogWritePin(AnalogPin.P1, intensity);
+                             break
+                        case 2:
+                             pins.analogWritePin(AnalogPin.P2, intensity);
+                             break
+                        case 12:
+                             pins.analogWritePin(AnalogPin.P12, intensity);
+                             break
+                        }					
+									
 				}else if (mode == "2"){ //servo
-					pin = parseInt(temp.substr(5, 2))
+					pin = parseInt(temp.substr(5, 2))-7
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,180) 
-					
-					pins.servoWritePin(pin, intensity)
+	                switch (pin) {
+						case 0:
+						     pins.servoWritePin(AnalogPin.P0, intensity);
+                             break
+                        case 1:
+                             pins.servoWritePin(AnalogPin.P1, intensity);
+                             break
+                        case 2:
+                             pins.servoWritePin(AnalogPin.P2, intensity);
+                             break
+                        case 12:
+                             pins.servoWritePin(AnalogPin.P12, intensity);
+                             break
+                        }					
+												
 				}else if (mode == "3"){ //motor
-					motor = parseInt(temp.substr(6, 1))
+					motor = parseInt(temp.substr(6, 1)) 
 					direction = parseInt(temp.substr(5, 1))									
 					intensity = pins.map(parseInt(temp.substr(2, 3)),100,900,0,100) 
 					
