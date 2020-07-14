@@ -256,7 +256,7 @@ namespace MuseIoT {
 	//% weight=55
 	//% blockGap=7		
     export function startWebServer(): void {
-		flag = true
+		flag = false
 		serial.writeLine("(AT+startWebServer)")
 		while(flag) {
 			serial.writeLine("(AT+write_sensor_data?p0=" + pins.analogReadPin(AnalogPin.P0) + "&p1=" + pins.analogReadPin(AnalogPin.P1) + "&p2=" + pins.analogReadPin(AnalogPin.P2) + "&outbound1=" + outbound1 + "&outbound2=" + outbound2 + ")")
