@@ -10,7 +10,7 @@
 		"SSD1306_OLED": "github:muselab/pxt-muselab-oled#v1.1.1",
 		"pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
         "pxt-muse21": "github:muselab/pxt-muse21#v0.2.2",
-        "pxt-museDigital Sensor ": "github:muselab/pxt-museDigitalSensor#v0.0.1"
+        "pxt-museDigital-Sensor ": "github:muselab/pxt-museDigitalSensor#v0.0.1"
 		
     },
     "files": [
