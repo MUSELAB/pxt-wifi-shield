@@ -187,7 +187,7 @@ namespace MuseIoT {
 				}
 				
 			}else{
-                MuseOLED.showString(temp)
+                //MuseOLED.showString(temp)
             }
         })
 		
