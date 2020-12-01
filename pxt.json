@@ -8,8 +8,8 @@
 		"pxt-muselab-plugin": "github:muselab/pxt-robotic-shield#v1.0.1",
 		"pxt-muselab-city": "github:muselab/pxt-muselab-city#v1.2.6",
 		"pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
-        "pxt-muse21": "github:muselab/pxt-muse21#v0.2.4",
-        "pxt-oled": "github:muselab/pxt-oled-ssd1306#2.0.9"
+        "pxt-muse21": "github:muselab/pxt-muse21#v0.2.4"
+        //"pxt-oled": "github:muselab/pxt-oled-ssd1306#2.0.9"
 
     },
     "files": [
