@@ -1,5 +1,5 @@
 serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-    OLED.showString(serial.readLine())
+    OLED.writeString(serial.readLine())
 })
 input.onButtonPressed(Button.AB, () => {
     MuseIOT.setWifi("muselab", "12345678")
