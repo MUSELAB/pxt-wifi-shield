@@ -55,7 +55,7 @@ namespace MuseIoT {
 	//% blockGap=7	
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16, SerialPin.P8, BaudRate.BaudRate115200);
-        OLED.init(32, 128)
+        OLED.init(128,32)
         
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             let temp = serial.readLine()
