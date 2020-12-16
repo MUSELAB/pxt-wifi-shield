@@ -187,7 +187,7 @@ namespace MuseIoT {
 				}
 				
 			}else{
-                OLED.writeString(temp)
+                OLED.writeStringNewLine(temp)
             }
         })
 		
