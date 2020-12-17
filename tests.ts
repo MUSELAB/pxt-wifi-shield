@@ -25,7 +25,7 @@ input.onPinPressed(TouchPin.P2, () => {
     MuseIOT.controlServo(5, 100)
 })
 basic.showIcon(IconNames.Angry)
-OLED.init(32, 128)
+OLED.init()
 MuseIOT.initializeWifi()
 basic.forever(() => {
 	
