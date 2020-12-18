@@ -1,5 +1,5 @@
 serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-    OLED.writeString(serial.readLine())
+    MuseOLED.writeString(serial.readLine())
 })
 input.onButtonPressed(Button.AB, () => {
     MuseIOT.setWifi("muselab", "12345678")
@@ -25,7 +25,7 @@ input.onPinPressed(TouchPin.P2, () => {
     MuseIOT.controlServo(5, 100)
 })
 basic.showIcon(IconNames.Angry)
-OLED.init()
+MuseOLED.init()
 MuseIOT.initializeWifi()
 basic.forever(() => {
 	
