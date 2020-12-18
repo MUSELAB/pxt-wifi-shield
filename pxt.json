@@ -7,8 +7,8 @@
         "core": "*",		
 		"pxt-muselab-plugin": "github:muselab/pxt-robotic-shield#v1.0.1",
 		"pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
-        "pxt-muse21": "github:muselab/pxt-muse21#v0.2.8",
-        "pxt-museoled": "github:muselab/pxt-muselab-oled-v2#v2.0.16"
+        "pxt-muse21": "github:muselab/pxt-muse21#v0.2.9",
+        "pxt-museoled": "github:muselab/pxt-muselab-oled-v2#v2.0.17"
     },
     "files": [
         "README.md",
