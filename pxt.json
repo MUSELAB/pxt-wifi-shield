@@ -13,7 +13,8 @@
     "files": [
         "README.md",
         "ns.ts",
-        "wifi.ts"
+        "wifi.ts",
+        "_locales/zh-TW/pxt-muselab-strings.json"
     ],
     "testFiles": [
         "tests.ts"
