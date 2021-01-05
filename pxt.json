@@ -1,6 +1,6 @@
 {
     "name": "pxt-muselab",
-    "version": "1.9.8",
+    "version": "1.9.9",
     "description": "Blocks to simplify using muselab products in PXT",
     "license": "MIT",
     "dependencies": {
@@ -14,7 +14,8 @@
         "README.md",
         "ns.ts",
         "wifi.ts",
-        "_locales/zh-TW/pxt-muselab-strings.json"
+        "_locales/zh-TW/pxt-muselab-strings.json",
+        "_locales/zh-CN/pxt-muselab-strings.json"
     ],
     "testFiles": [
         "tests.ts"
