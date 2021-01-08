@@ -4,8 +4,9 @@ namespace MuseIoT {
 	let inbound1 = ""
 	let inbound2 = ""
 	let outbound1 = ""
-	let outbound2 = ""
-	
+    let outbound2 = ""
+    let b_MQTTon = false;
+    //let str_MQTTinbound = "";
 	export enum arcgisFunction {
         //% block="Add"
         add,
@@ -61,7 +62,11 @@ namespace MuseIoT {
             let temp = serial.readLine()
             let tempDeleteFirstCharacter = ""			
 
-            if (temp.charAt(0).compare("#") == 0) {
+            if (b_MQTTon){
+                //str_MQTTinbound = temp;
+                basic.showString(temp);
+                b_MQTTon = false;
+            }else if(temp.charAt(0).compare("#") == 0) {
                 tempDeleteFirstCharacter = temp.substr(1, 20)
                 httpReturnArray.push(tempDeleteFirstCharacter)
             }else if (temp.charAt(0).compare("*") == 0) {
@@ -186,7 +191,9 @@ namespace MuseIoT {
 					inbound2 = string_word
 				}
 				
-			}else{
+            }else if(temp.substr(0,12) == "Got MQTT Msg"){
+                b_MQTTon = true;       
+            }else{
                 MuseOLED.writeStringNewLine(temp)
             }
         })
