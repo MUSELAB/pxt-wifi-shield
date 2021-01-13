@@ -176,13 +176,19 @@ namespace MuseIoT {
                                 serial.writeLine("(AT+servo_180?pin=" + temp.charAt(2) + "&degree=" + temp.substr(4,3) + ")");
                             break;
                             case "3":
-                                if (parseInt(temp.substr(4,3))*180/200>100){
-                                    serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=anticlockwise&speed=" + (parseInt(temp.substr(4,3))*180/200-100).toString() + ")");
-                                }else if(parseInt(temp.substr(4,3))*180/200<=100){
-                                    serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=clockwise&speed=" + (100-parseInt(temp.substr(4,3))*180/200).toString() + ")");
+                                let temp_case3 = 0
+                                if (parseInt(temp.substr(4,3))>100){
+                                    temp_case3 = pins.map(parseInt(temp.substr(4,3)),100,200,-9,71)
+                                }else if(parseInt(temp.substr(4,3))<=100){
+                                    temp_case3 = pins.map(parseInt(temp.substr(4,3)),100,0,-20,-100)
+                                }
+
+                                if (temp_case3 > 0){
+                                    serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=anticlockwise&speed=" + temp_case3 + ")");
+                                }else{
+                                    serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=clockwise&speed=" + (-temp_case3) + ")");
                                 }
                             break;
-
                         }
                     }
                 }else{
@@ -482,7 +488,7 @@ namespace MuseIoT {
     //% blockId="muselab_tostring" 
     //% block="Convert number %no|to string"
     //% weight=46
-    
+    //% blockGap=7	
     export function changetostring(no: number): string {
 		
 		return no.toString();
@@ -522,7 +528,8 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_mqtt_subscribe
     //% block="MQTT subscribe topic %topic"
-	//% weight=41	
+    //% weight=41	
+    //% blockGap=7
     export function mqttSubscribe(topic: string): void {
         serial.writeLine("(AT+mqttSub?topic="+topic+")");
     }	
@@ -530,17 +537,162 @@ namespace MuseIoT {
     //%subcategory=More
     //%blockId=muselab_mqtt_inbound
     //% block="MQTT inbound"
-	//% weight=41	
+    //% weight=40
+    //% blockGap=7
     export function mqttInbound(): string {
         return str_MQTTinbound;
     }
-	
+
+    //%subcategory=More
+    //%blockId=muselab_mqtt_send_digital
+    //% block="MQTT send digital output command to |Topic %temp_topic Pin %temp_pin Output %temp_output"
+    //% weight=39
+    //% blockGap=7
+    export function mqttSendDigital(temp_topic: string, temp_pin: Muse21.Servo, temp_output: Muse21.digitalonoff){
+        serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#0"+ temp_pin + "000" + temp_output + ")");
+    }
+
+    
+
+    //%subcategory=More
+    //%blockId=muselab_mqtt_send_analog
+    //% block="MQTT send analog output command to |Topic %temp_topic Pin %temp_pin Output %temp_output"
+    //% temp_output.min=0 temp_output.max=1023
+	//% weight=38	
+    export function mqttSendAnalog(temp_topic: string, temp_pin: Muse21.Servo, temp_output: number){
+
+        serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#1"+ temp_pin + 
+        (temp_output<10? 
+            "000" + temp_output.toString()
+        :
+            (temp_output<100?
+                "00" + temp_output.toString()
+            :
+                (temp_output<1000?
+                    "0" + temp_output.toString()    
+                :
+                    temp_output.toString()
+                )
+            ) 
+        )
+         + ")");
+    }
+    
+    //%subcategory=More
+    //%blockId=muselab_mqtt_send_180servo
+    //% block="MQTT send 180 servo output command to |Topic %temp_topic Pin %temp_pin Degree %temp_output"
+    //% temp_output.min=0 temp_output.max=180
+	//% weight=37	
+    export function mqttSend180Servo(temp_topic: string, temp_pin: Muse21.Servo, temp_output: number){
+        serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#2"+ temp_pin + 
+        (temp_output<10?
+            "000" + temp_output.toString()
+        :
+            (temp_output<100?
+                "00" + temp_output.toString()
+            :
+                "0" + temp_output.toString()
+            )
+        )
+         + ")");
+    }
+
+
+    //%subcategory=More
+    //%blockId=muselab_mqtt_send_360servo
+    //% block="MQTT send 360 servo output command to |Topic %temp_topic Pin %temp_pin Direction %temp_direction Speed %temp_output"
+    //% temp_output.min=0 temp_output.max=100
+	//% weight=36	
+    export function mqttSend360Servo(temp_topic: string, temp_pin: Muse21.Servo, temp_direction: Muse21.ServoDirection, temp_output: number){
+        if(temp_direction == Muse21.ServoDirection.clockwise){
+            temp_output += 100;
+        }else{
+            temp_output = -temp_output + 100;
+        }
+        serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#3"+ temp_pin +
+        (temp_output<10?
+            "000" + temp_output.toString()
+        :
+            (temp_output<100?
+                "00" + temp_output.toString()
+            :
+                "0" + temp_output.toString()
+            )
+        )
+        + ")");
+    }
+
+    //%subcategory=More
+    //%blockId=muselab_mqtt_send_Motor
+    //% block="MQTT send Motor command to |Topic %temp_topic %temp_motor Direction %temp_direction Speed %temp_output"
+    //% temp_output.min=0 temp_output.max=1023
+	//% weight=35	
+    export function mqttSendMotor(temp_topic: string, temp_motor: MuseRover.Motors, temp_direction: Muse21.ServoDirection, temp_output: number){
+        serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#4"+ (temp_motor).toString() + (temp_direction).toString() + 
+        (temp_output<10?
+            "000" + temp_output.toString()
+        :
+            (temp_output<100?
+                "00" + temp_output.toString()
+            :
+                (temp_output<1000?
+                    "0" + temp_output.toString()
+                :
+                    temp_output.toString()
+                )
+            )
+        )
+        + ")");
+    }
+
+    //%subcategory=More
+    //%blockId=muselab_mqtt_send_bothMotor
+    //% block="MQTT send Motor command to |Topic %temp_topic Direction1 %temp_direction1 Speed1 %temp_output1 Direction2 %temp_direction2 Speed2 %temp_output2"
+    //% temp_output1.min=0 temp_output1.max=1023 temp_output2.min=0 temp_output2.max=1023
+	//% weight=34	
+    export function mqttSendMotor_2(temp_topic: string, temp_direction1: Muse21.ServoDirection, temp_output1: number, temp_direction2: Muse21.ServoDirection, temp_output2: number){
+        serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#5"+ (temp_direction1).toString() + 
+        (temp_output1<10?
+            "000" + temp_output1.toString()
+        :
+            (temp_output1<100?
+                "00" + temp_output1.toString()
+            :
+                (temp_output1<1000?
+                    "0" + temp_output1.toString()
+                :
+                    temp_output1.toString()
+                )
+            )
+        )
+        + (temp_direction2).toString() +
+        (temp_output2<10?
+            "000" + temp_output2.toString()
+        :
+            (temp_output2<100?
+                "00" + temp_output2.toString()
+            :
+                (temp_output2<1000?
+                    "0" + temp_output2.toString()
+                :
+                    temp_output2.toString()
+                )
+            )
+        )
+        + ")");
+    }
+
+
+
+
+
+
 	// -------------- 6. General ----------------		
 
 	//%subcategory=More
     //%blockId=muselab_battery
     //%block="Get battery level"
-	//% weight=40
+	//% weight=33
 	//% blockGap=7		
 	
     export function sendBattery(): void {
@@ -550,7 +702,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_version
     //%block="Get firmware version"
-	//% weight=39	
+	//% weight=32	
 	//% blockGap=7		
     export function sendVersion(): void {
         serial.writeLine("(AT+version)");
