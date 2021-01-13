@@ -7,6 +7,7 @@ namespace MuseIoT {
     let outbound2 = ""
     let b_MQTTon = false;
     let str_MQTTinbound = "";
+    
 	export enum arcgisFunction {
         //% block="Add"
         add,
@@ -48,7 +49,7 @@ namespace MuseIoT {
         //% block="2"
         bound2
     }
-	
+
 	// -------------- 1. Initialization ----------------
     //%blockId=muselab_initialize_wifi
     //%block="Initialize Muselab WiFi Booster and OLED"
@@ -59,111 +60,56 @@ namespace MuseIoT {
         MuseOLED.init()
         
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-            let temp = serial.readLine()
-            let tempDeleteFirstCharacter = ""			
+            let temp = serial.readLine();
+            let tempDeleteFirstCharacter = "";	
 
             if (b_MQTTon){
                 if (temp.charAt(0) == "#"){
                     if (parseInt(temp.charAt(2))<=4){
-                        let temp_pin = 0;
+                        let temp_pin = 100 + (temp.charAt(2)=="3"?12:parseInt(temp.charAt(2)));
                         switch(parseInt(temp.charAt(1))){
                             case 0:
-                                temp_pin = DigitalPin.P0;
-                                switch(temp.charAt(2)){
-                                    case "1":
-                                        temp_pin = DigitalPin.P1;
-                                    break;
-                                    case "2":
-                                        temp_pin = DigitalPin.P2;
-                                    break;
-                                    case "3":
-                                        temp_pin = DigitalPin.P12;
-                                    break;
-                                }
                                 pins.digitalWritePin(temp_pin, parseInt(temp.charAt(6)));
                             break;
                             case 1:
-                                temp_pin = AnalogPin.P0;
-                                switch(temp.charAt(2)){
-                                    case "1":
-                                        temp_pin = AnalogPin.P1;
-                                    break;
-                                    case "2":
-                                        temp_pin = AnalogPin.P2;
-                                    break;
-                                    case "3":
-                                        temp_pin = AnalogPin.P12;
-                                    break;
-                                }
                                 pins.analogWritePin(temp_pin, parseInt(temp.substr(3,4)));
                             break;
                             case 2:
-                                temp_pin = AnalogPin.P0;
-                                switch(temp.charAt(2)){
-                                    case "1":
-                                        temp_pin = AnalogPin.P1;
-                                    break;
-                                    case "2":
-                                        temp_pin = AnalogPin.P2;
-                                    break;
-                                    case "3":
-                                        temp_pin = AnalogPin.P12;
-                                    break;
-                                }
                                 pins.servoWritePin(temp_pin, parseInt(temp.substr(4,3)));
                             break;
                             case 3:
-                                temp_pin = AnalogPin.P0;
-                                switch(temp.charAt(2)){
-                                    case "1":
-                                        temp_pin = AnalogPin.P1;
-                                    break;
-                                    case "2":
-                                        temp_pin = AnalogPin.P2;
-                                    break;
-                                    case "3":
-                                        temp_pin = AnalogPin.P12;
-                                    break;
-                                }
                                 pins.servoWritePin(temp_pin, parseInt(temp.substr(4,3))*180/200);
                             break;
-                            case 4:
-                                let motor = parseInt(temp.charAt(2)); 
-					            let direction = parseInt(temp.charAt(3))									
-					            let intensity = pins.map(parseInt(temp.substr(4,4)),0,1023,0,100) 
-                                MuseRover.motorOn(motor, direction, intensity)
+                            case 4: 
+                                MuseRover.motorOn(parseInt(temp.charAt(2)), parseInt(temp.charAt(3)), pins.map(parseInt(temp.substr(4,4)),0,1023,0,100))
                             break;
-                            case 5:
-                                let direction1 = parseInt(temp.charAt(2))									
-					            let intensity1 = pins.map(parseInt(temp.substr(3, 4)),0,1023,0,100) 
-					            let direction2 = parseInt(temp.charAt(7))									
-					            let intensity2 = pins.map(parseInt(temp.substr(8, 4)),0,1023,0,100) 
-					
-					            MuseRover.motorOn(0, direction1, intensity1)
-					            MuseRover.motorOn(1, direction2, intensity2)
+                            case 5:								
+					            MuseRover.motorOn(0, parseInt(temp.charAt(2)), pins.map(parseInt(temp.substr(3, 4)),0,1023,0,100));
+					            MuseRover.motorOn(1, parseInt(temp.charAt(7)), pins.map(parseInt(temp.substr(8, 4)),0,1023,0,100));
                             break;
                             case 6:
-                                let direction_case6 = parseInt(temp.substr(2, 1))									
-					            let intensity_case6 = pins.map(parseInt(temp.substr(3, 4)),0,1023,0,100) 
-					            if(direction_case6 == 0){
-						            MuseRover.motorOn(0, 0, intensity_case6)
-						            MuseRover.motorOn(1, 0, intensity_case6)
-					            }else if (direction_case6 == 1){
-						            MuseRover.motorOn(0, 1, intensity_case6)
-						            MuseRover.motorOn(1, 1, intensity_case6)
-					            }else if (direction_case6 == 2){
-						            MuseRover.motorOn(0, 1, intensity_case6)
-						            MuseRover.motorOn(1, 0, 0)
-					            }else if (direction_case6 == 3){
-						            MuseRover.motorOn(0, 0, 0)
-						            MuseRover.motorOn(1, 1, intensity_case6)
-					            }else if (direction_case6 == 4){
-						            MuseRover.motorOn(0, 0, intensity_case6)
-						            MuseRover.motorOn(1, 0, intensity_case6)
-					            }
+                                {
+                                    let temp_mode = parseInt(temp.substr(2, 1));
+                                    let temp_speed = pins.map(parseInt(temp.substr(3, 4)),0,1023,0,100);
+					                if(temp_mode == 0){
+						                MuseRover.motorOn(0, 0, temp_speed)
+						                MuseRover.motorOn(1, 0, temp_speed)
+					                }else if (temp_mode == 1){
+						                MuseRover.motorOn(0, 1, temp_speed)
+						                MuseRover.motorOn(1, 1, temp_speed)
+					                }else if (temp_mode == 2){
+						                MuseRover.motorOn(0, 1, temp_speed)
+						                MuseRover.motorOn(1, 0, 0)
+					                }else if (temp_mode == 3){
+						                MuseRover.motorOn(0, 0, 0)
+						                MuseRover.motorOn(1, 1, temp_speed)
+					                }else if (temp_mode == 4){
+						                MuseRover.motorOn(0, 0, temp_speed)
+						                MuseRover.motorOn(1, 0, temp_speed)
+                                    }
+                                }
                             break;
                         }
-                        
                     }else if(parseInt(temp.charAt(2))>4){
                         switch(temp.charAt(1)){
                             case "0":
@@ -176,17 +122,19 @@ namespace MuseIoT {
                                 serial.writeLine("(AT+servo_180?pin=" + temp.charAt(2) + "&degree=" + temp.substr(4,3) + ")");
                             break;
                             case "3":
-                                let temp_case3 = 0
-                                if (parseInt(temp.substr(4,3))>100){
-                                    temp_case3 = pins.map(parseInt(temp.substr(4,3)),100,200,-9,71)
-                                }else if(parseInt(temp.substr(4,3))<=100){
-                                    temp_case3 = pins.map(parseInt(temp.substr(4,3)),100,0,-20,-100)
-                                }
+                                {
+                                    let temp_case3 = 0
+                                    if (parseInt(temp.substr(4,3))>100){
+                                        temp_case3 = pins.map(parseInt(temp.substr(4,3)),100,200,-9,71)
+                                    }else if(parseInt(temp.substr(4,3))<=100){
+                                        temp_case3 = pins.map(parseInt(temp.substr(4,3)),100,0,-20,-100)
+                                    }
 
-                                if (temp_case3 > 0){
-                                    serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=anticlockwise&speed=" + temp_case3 + ")");
-                                }else{
-                                    serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=clockwise&speed=" + (-temp_case3) + ")");
+                                    if (temp_case3 > 0){
+                                        serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=anticlockwise&speed=" + temp_case3 + ")");
+                                    }else{
+                                        serial.writeLine("(AT+servo_360?pin=" + temp.charAt(2) + "&direction=clockwise&speed=" + (-temp_case3) + ")");
+                                    }
                                 }
                             break;
                         }
@@ -485,20 +433,11 @@ namespace MuseIoT {
     }
 	
 	//%subcategory=More
-    //% blockId="muselab_tostring" 
-    //% block="Convert number %no|to string"
-    //% weight=46
-    //% blockGap=7	
-    export function changetostring(no: number): string {
-		
-		return no.toString();
-    }
-	
-	//%subcategory=More
     //%blockId=muselab_muse_mqtt
     //%block="Connect to Muse MQTT server"
 	//% weight=44
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="MQTT"
     export function connectMuseMQTT(): void {
         serial.writeLine("(AT+startMQTT?host=13.58.53.42&port=1883&clientId=100&username=omlxmgsy&password=AoGUfQNPkeSH)");
 		while(true) {
@@ -511,7 +450,8 @@ namespace MuseIoT {
 	//% blockId=muselab_general_mqtt
 	//% block="Connect MQTT server %host| port %port| client id %clientId| username %username| password %pwd"
 	//% weight=43
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="MQTT"
     export function connectgeneralMQTT(host: string, port: string, clientId: string, username: string, pwd: string): void {
         serial.writeLine("(AT+startMQTT?host="+host+"&port="+port+"&clientId="+clientId+"&username="+username+"&password="+pwd+")");
     }
@@ -520,7 +460,8 @@ namespace MuseIoT {
     //%blockId=muselab_mqtt_publish
     //% block="MQTT publish topic %topic| payload %payload"
 	//% weight=42	
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="MQTT"
     export function mqttPublish(topic: string, payload: string): void {
         serial.writeLine("(AT+mqttPub?topic="+topic+"&payload="+payload+")");
     }	
@@ -530,6 +471,7 @@ namespace MuseIoT {
     //% block="MQTT subscribe topic %topic"
     //% weight=41	
     //% blockGap=7
+    //% group="MQTT"
     export function mqttSubscribe(topic: string): void {
         serial.writeLine("(AT+mqttSub?topic="+topic+")");
     }	
@@ -539,6 +481,7 @@ namespace MuseIoT {
     //% block="MQTT inbound"
     //% weight=40
     //% blockGap=7
+    //% group="MQTT"
     export function mqttInbound(): string {
         return str_MQTTinbound;
     }
@@ -548,17 +491,19 @@ namespace MuseIoT {
     //% block="MQTT send digital output command to |Topic %temp_topic Pin %temp_pin Output %temp_output"
     //% weight=39
     //% blockGap=7
+    //% group="MQTT"
     export function mqttSendDigital(temp_topic: string, temp_pin: Muse21.Servo, temp_output: Muse21.digitalonoff){
         serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#0"+ temp_pin + "000" + temp_output + ")");
     }
 
-    
+
 
     //%subcategory=More
     //%blockId=muselab_mqtt_send_analog
     //% block="MQTT send analog output command to |Topic %temp_topic Pin %temp_pin Output %temp_output"
     //% temp_output.min=0 temp_output.max=1023
-	//% weight=38	
+    //% weight=38
+    //% group="MQTT"
     export function mqttSendAnalog(temp_topic: string, temp_pin: Muse21.Servo, temp_output: number){
 
         serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#1"+ temp_pin + 
@@ -582,7 +527,8 @@ namespace MuseIoT {
     //%blockId=muselab_mqtt_send_180servo
     //% block="MQTT send 180 servo output command to |Topic %temp_topic Pin %temp_pin Degree %temp_output"
     //% temp_output.min=0 temp_output.max=180
-	//% weight=37	
+    //% weight=37
+    //% group="MQTT"
     export function mqttSend180Servo(temp_topic: string, temp_pin: Muse21.Servo, temp_output: number){
         serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#2"+ temp_pin + 
         (temp_output<10?
@@ -602,7 +548,8 @@ namespace MuseIoT {
     //%blockId=muselab_mqtt_send_360servo
     //% block="MQTT send 360 servo output command to |Topic %temp_topic Pin %temp_pin Direction %temp_direction Speed %temp_output"
     //% temp_output.min=0 temp_output.max=100
-	//% weight=36	
+    //% weight=36
+    //% group="MQTT"
     export function mqttSend360Servo(temp_topic: string, temp_pin: Muse21.Servo, temp_direction: Muse21.ServoDirection, temp_output: number){
         if(temp_direction == Muse21.ServoDirection.clockwise){
             temp_output += 100;
@@ -626,7 +573,8 @@ namespace MuseIoT {
     //%blockId=muselab_mqtt_send_Motor
     //% block="MQTT send Motor command to |Topic %temp_topic %temp_motor Direction %temp_direction Speed %temp_output"
     //% temp_output.min=0 temp_output.max=1023
-	//% weight=35	
+    //% weight=35
+    //% group="MQTT"
     export function mqttSendMotor(temp_topic: string, temp_motor: MuseRover.Motors, temp_direction: Muse21.ServoDirection, temp_output: number){
         serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#4"+ (temp_motor).toString() + (temp_direction).toString() + 
         (temp_output<10?
@@ -649,7 +597,8 @@ namespace MuseIoT {
     //%blockId=muselab_mqtt_send_bothMotor
     //% block="MQTT send Motor command to |Topic %temp_topic Direction1 %temp_direction1 Speed1 %temp_output1 Direction2 %temp_direction2 Speed2 %temp_output2"
     //% temp_output1.min=0 temp_output1.max=1023 temp_output2.min=0 temp_output2.max=1023
-	//% weight=34	
+    //% weight=34
+    //% group="MQTT"
     export function mqttSendMotor_2(temp_topic: string, temp_direction1: Muse21.ServoDirection, temp_output1: number, temp_direction2: Muse21.ServoDirection, temp_output2: number){
         serial.writeLine("(AT+mqttPub?topic="+ temp_topic +"&payload="+"#5"+ (temp_direction1).toString() + 
         (temp_output1<10?
