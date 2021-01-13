@@ -5,3 +5,5 @@ yotta_targets
 pxt_modules
 *.db
 *.tgz
+package-lock.json
+package.json
