@@ -7,6 +7,8 @@ namespace MuseIoT {
     let outbound2 = ""
     let b_MQTTon = false;
     let str_MQTTinbound = "";
+    let b_MQTTConnectStatus = true;
+    let b_CheckRecivied = false;
     
 	export enum arcgisFunction {
         //% block="Add"
@@ -63,6 +65,9 @@ namespace MuseIoT {
             let temp = serial.readLine();
             let tempDeleteFirstCharacter = "";	
 
+            if(temp.compare("Publish OK") >=0){
+                b_CheckRecivied = true;
+            }
             if (b_MQTTon){
                 if (temp.charAt(0) == "#"){
                     if (parseInt(temp.charAt(2))<=4){
@@ -270,7 +275,7 @@ namespace MuseIoT {
 				}
 				
             }else if(temp.substr(0,12) == "Got MQTT Msg"){
-                b_MQTTon = true;       
+                b_MQTTon = true;
             }else{
                 MuseOLED.writeStringNewLine(temp)
             }
@@ -444,6 +449,20 @@ namespace MuseIoT {
 			serial.writeLine("(AT+write_sensor_data?p0=" + pins.analogReadPin(AnalogPin.P0) + "&p1=" + pins.analogReadPin(AnalogPin.P1) + "&p2=" + pins.analogReadPin(AnalogPin.P2) + ")")
 			basic.pause(500)
 		}
+    }
+
+    //%subcategory=More
+    //%blockId=muselab_check_mqtt
+    //%block="Check MQTT statu by send to topic %temp_topic with message %temp_payload "
+	//% weight=44
+    //% blockGap=7
+    //% group="MQTT"
+    export function checkMQTT(temp_topic: string, temp_payload: string): boolean {
+        b_CheckRecivied = false;
+        serial.writeLine("(AT+mqttPub?topic="+temp_topic+"&payload="+temp_payload+")");
+        basic.pause(1000);
+        b_MQTTConnectStatus = b_CheckRecivied;
+        return b_MQTTConnectStatus;
     }
 	
 	//%subcategory=More
