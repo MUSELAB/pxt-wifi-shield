@@ -56,7 +56,8 @@ namespace MuseIoT {
     //%blockId=muselab_initialize_wifi
     //%block="Initialize Muselab WiFi Booster and OLED"
 	//% weight=90	
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="Booster"
     export function initializeWifi(): void {
         serial.redirect(SerialPin.P16, SerialPin.P8, BaudRate.BaudRate115200);
         MuseOLED.init()
@@ -65,9 +66,7 @@ namespace MuseIoT {
             let temp = serial.readLine();
             let tempDeleteFirstCharacter = "";	
 
-            if(temp.compare("Publish OK") >=0){
-                b_CheckRecivied = true;
-            }
+            
             if (b_MQTTon){
                 if (temp.charAt(0) == "#"){
                     if (parseInt(temp.charAt(2))<=4){
@@ -149,6 +148,8 @@ namespace MuseIoT {
                 }
                 
                 b_MQTTon = false;
+            }else if(temp.compare("Publish OK") >=0){
+                b_CheckRecivied = true;
             }else if(temp.charAt(0).compare("#") == 0) {
                 tempDeleteFirstCharacter = temp.substr(1, 20)
                 httpReturnArray.push(tempDeleteFirstCharacter)
@@ -287,7 +288,8 @@ namespace MuseIoT {
 	// -------------- 2. WiFi ----------------
     //% blockId=muselab_set_wifi
 	//% block="Set wifi to ssid %ssid| pwd %pwd"   
-	//% weight=80	
+    //% weight=80
+    //% group="WIFI"
     export function setWifi(ssid: string, pwd: string): void {
         serial.writeLine("(AT+wifi?ssid="+ssid+"&pwd="+pwd+")"); 
     }
@@ -296,16 +298,17 @@ namespace MuseIoT {
     //% blockId=muselab_set_thingspeak
 	//% block="Send Thingspeak key* %key|field1 %field1|field2 %field2|field3 %field3"
 	//% weight=70	
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="Cloud"
     export function sendThingspeak(key: string, field1: number, field2: number, field3: number): void {
         serial.writeLine("(AT+thingspeak?key=" + key+"&field1="+field1+"&field2="+field2+"&field3="+field3+")"); 
     }
 	
-	// -------------- 3. Cloud ----------------
     //% blockId=muselab_set_musespeak
 	//% block="Send data.muselab.cc key* %key|field1 %field1|field2 %field2|field3 %field3|field4 %field4|field5 %field5|field6 %field6"
 	//% weight=65	
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="Cloud"
     export function sendMusespeak(key: string, field1: number, field2: number, field3:number,field4: number,field5: number,field6: number): void {        
 		serial.writeLine("(AT+http?method=GET&url=18.188.188.94:3000/update?key="+ key +"&field1=" + field1 + "&field2="+ field2 +"&field3="+ field3+"&field4="+ field4+"&field5="+ field5+ "&field6="+ field6+"&field7=0" + "&header=&body=)");
     }
@@ -313,14 +316,16 @@ namespace MuseIoT {
     //% blockId=muselab_set_ifttt
 	//% block="Send IFTTT key* %key|event_name* %event|value1 %value1|value2 %value2|value3 %value3"
 	//% weight=60
-	//% blockGap=7		
+    //% blockGap=7
+    //% group="Cloud"
     export function sendIFTTT(key: string, eventname: string, value1: number, value2: number, value3: number): void {
         serial.writeLine("(AT+ifttt?key=" + key+"&event="+eventname+"&value1="+value1+"&value2="+value2+"&value3="+value3+")"); 
     }
 
     //% blockId=muselab_set_arcgis
 	//% block="Send ArcGIS Online feature function %arcgisfunction|Server name* %servername|Service ID* %featureserviceid|Layer Name* %layername|Location X* %x|Location Y* %y|sensor_type %sensortype|sensor_id %sensorid|sensor_reading %reading|objectid(For update only) %objectid"
-	//% weight=59	
+    //% weight=59
+    //% group="Cloud"
     export function sendArcgis(arcgisfunction: arcgisFunction, servername: string, featureserviceid: string, layername: string, x: string, y: string, sensortype: string, sensorid: string, reading: number, objectid: number): void {
 		switch(arcgisfunction){
 			case arcgisFunction.add:
@@ -336,7 +341,8 @@ namespace MuseIoT {
 	//% blockId=muselab_set_wifi_hotspot
 	//% block="Set hotspot to ssid %ssid| pwd %pwd"   
 	//% weight=58	
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="WIFI"
     export function setWifiHotspot(ssid: string, pwd: string): void {
         serial.writeLine("(AT+wifi_hotspot?ssid="+ssid+"&pwd="+pwd+")"); 
     }
@@ -344,7 +350,8 @@ namespace MuseIoT {
     //%blockId=muselab_start_server
     //%block="Start WiFi remote control"
 	//% weight=55
-	//% blockGap=7		
+    //% blockGap=7
+    //% group="HTTP"
     export function startWebServer(): void {
 		flag = false
 		serial.writeLine("(AT+startWebServer)")
@@ -359,7 +366,8 @@ namespace MuseIoT {
 	
     //%blockId=muselab_initialize_wifi_normal
     //%block="Initialize Muselab WiFi Booster"
-	//% weight=54	
+    //% weight=54
+    //% group="Booster"
     export function initializeWifiNormal(): void {
         serial.redirect(SerialPin.P16,SerialPin.P8,BaudRate.BaudRate115200);
     }
@@ -370,7 +378,8 @@ namespace MuseIoT {
     //%blockId=muselab_generic_http
     //% block="Send generic HTTP method %method| http://%url| header %header| body %body"
     //% weight=50
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="HTTP"
     export function sendGenericHttp(method: httpMethod, url: string, header: string, body: string): void {
 		httpReturnArray = []
         let temp = ""
@@ -396,7 +405,7 @@ namespace MuseIoT {
     //% block="HTTP response (string array)"
     //% weight=49
 	//% blockGap=7	
-    
+    //% group="HTTP"
     export function getGenericHttpReturn(): Array<string> {
         return httpReturnArray;
     }
@@ -406,7 +415,7 @@ namespace MuseIoT {
     //% block="HTTP inbound %no"
     //% weight=48
 	//% blockGap=7	
-    
+    //% group="HTTP"
     export function getInbound(no: bound_no): string {
         let temp = ""
         switch (no) {
@@ -424,7 +433,8 @@ namespace MuseIoT {
     //%blockId=muselab_http_outbound1
     //%block="Set HTTP outbound %no| %wordinds"
 	//% weight=47	
-	//% blockGap=7		
+    //% blockGap=7
+    //% group="HTTP"
     export function setOutbound(no: bound_no, wordinds: string): void {
 		
 		switch (no) {
@@ -660,9 +670,8 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_battery
     //%block="Get battery level"
-	//% weight=33
 	//% blockGap=7		
-	
+	//% group="Booster"
     export function sendBattery(): void {
         serial.writeLine("(AT+battery)");
     }	
@@ -670,8 +679,8 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_version
     //%block="Get firmware version"
-	//% weight=32	
-	//% blockGap=7		
+    //% blockGap=7
+    //% group="Booster"
     export function sendVersion(): void {
         serial.writeLine("(AT+version)");
     }
@@ -679,8 +688,8 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_at
     //%block="Send AT command %command"
-	//% weight=30	
-	//% blockGap=7		
+    //% blockGap=7
+    //% group="Booster"		
     export function sendAT(command: string): void {
         serial.writeLine(command);
 		flag = false
@@ -689,8 +698,8 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_test
     //%block="Send AT test"
-	//% weight=20	
-	//% blockGap=7		
+    //% blockGap=7
+    //% group="Booster"
     export function sendTest(): void {
         serial.writeLine("(AT+testing)");
     }
@@ -698,8 +707,8 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_deep_sleep
     //%block="Set deep sleep %second| second"
-	//% weight=15	
-	//% blockGap=7	
+    //% blockGap=7
+    //% group="Booster"
     export function setDeepSleep(second: number): void {
         serial.writeLine("(AT+deepsleep?time="+second+")");
     }	
@@ -707,7 +716,7 @@ namespace MuseIoT {
 	//%subcategory=More
     //%blockId=muselab_forever_sleep
     //%block="Soft trun off"
-	//% weight=14	
+    //% group="Booster"
     export function setTurnOff(): void {
         serial.writeLine("(AT+deepsleep?time=0)");
     }
