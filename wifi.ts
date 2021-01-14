@@ -463,7 +463,7 @@ namespace MuseIoT {
 
     //%subcategory=More
     //%blockId=muselab_check_mqtt
-    //%block="Check MQTT statu by send to topic %temp_topic with message %temp_payload "
+    //%block="Check MQTT status by send to topic %temp_topic with message %temp_payload "
 	//% weight=44
     //% blockGap=7
     //% group="MQTT"

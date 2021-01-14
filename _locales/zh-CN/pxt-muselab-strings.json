@@ -10,6 +10,7 @@
   "MuseIoT.arcgisFunction.update|block": "更新",
   "MuseIoT.bound_no.bound1|block": "1",
   "MuseIoT.bound_no.bound2|block": "2",
+  "MuseIoT.checkMQTT|block": "传送测试迅息至|主题 %temp_topic 内容 %temp_payload 以检查MQTT的连线状态",
   "MuseIoT.connectMuseMQTT|block": "连接至 Muse MQTT 伺服器",
   "MuseIoT.connectgeneralMQTT|block": "连接至 MQTT 伺服器 %host| 埠囗 %port| 客户端 ID %clientId| 用户名称 %username| 密码 %pwd",
   "MuseIoT.getGenericHttpReturn|block": "HTTP 回应 (字串阵列)",
@@ -45,6 +46,10 @@
   "MuseIoT.setWifi|block": "连接WIFI SSID为 %ssid| 密码为 %pwd",
   "MuseIoT.startWebServer|block": "开启 WiFi遥远控制",
   "{id:category}MuseIoT": "MuseIoT",
+  "{id:group}Booster": "扩展版",
+  "{id:group}Cloud": "云端",
+  "{id:group}HTTP": "HTTP",
   "{id:group}MQTT": "MQTT",
+  "{id:group}WIFI": "WIFI",
   "{id:subcategory}More": "更多"
 }
