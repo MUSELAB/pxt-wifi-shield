@@ -10,6 +10,7 @@
   "MuseIoT.arcgisFunction.update|block": "更新",
   "MuseIoT.bound_no.bound1|block": "1",
   "MuseIoT.bound_no.bound2|block": "2",
+  "MuseIoT.checkMQTT|block": "傳送測試訊息至|主題 %temp_topic 內容 %temp_payload 以檢查 MQTT 連線狀態",
   "MuseIoT.connectMuseMQTT|block": "連接至 Muse MQTT 伺服器",
   "MuseIoT.connectgeneralMQTT|block": "連接至 MQTT 伺服器 %host| 埠口 %port| 客戶端 ID %clientId| 用戶名稱 %username| 密碼 %pwd",
   "MuseIoT.getGenericHttpReturn|block": "HTTP 回應 (字串陣列)",
@@ -45,6 +46,10 @@
   "MuseIoT.setWifi|block": "連接WIFI SSID為 %ssid| 密碼為 %pwd",
   "MuseIoT.startWebServer|block": "開啟 WiFi搖遠控製",
   "{id:category}MuseIoT": "MuseIoT",
+  "{id:group}Booster": "擴展版",
+  "{id:group}Cloud": "雲端",
+  "{id:group}HTTP": "HTTP",
   "{id:group}MQTT": "MQTT",
+  "{id:group}WIFI": "WIFI",
   "{id:subcategory}More": "更多"
 }

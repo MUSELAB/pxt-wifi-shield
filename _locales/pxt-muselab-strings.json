@@ -10,6 +10,7 @@
   "MuseIoT.arcgisFunction.update|block": "Update",
   "MuseIoT.bound_no.bound1|block": "1",
   "MuseIoT.bound_no.bound2|block": "2",
+  "MuseIoT.checkMQTT|block": "Check MQTT status by send to topic %temp_topic with message %temp_payload ",
   "MuseIoT.connectMuseMQTT|block": "Connect to Muse MQTT server",
   "MuseIoT.connectgeneralMQTT|block": "Connect MQTT server %host| port %port| client id %clientId| username %username| password %pwd",
   "MuseIoT.getGenericHttpReturn|block": "HTTP response (string array)",
@@ -45,6 +46,10 @@
   "MuseIoT.setWifi|block": "Set wifi to ssid %ssid| pwd %pwd",
   "MuseIoT.startWebServer|block": "Start WiFi remote control",
   "{id:category}MuseIoT": "MuseIoT",
+  "{id:group}Booster": "Booster",
+  "{id:group}Cloud": "Cloud",
+  "{id:group}HTTP": "HTTP",
   "{id:group}MQTT": "MQTT",
+  "{id:group}WIFI": "WIFI",
   "{id:subcategory}More": "More"
 }
