@@ -5,5 +5,8 @@ yotta_targets
 pxt_modules
 *.db
 *.tgz
+<<<<<<< Updated upstream
 package-lock.json
+=======
+>>>>>>> Stashed changes
 package.json
