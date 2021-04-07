@@ -4,9 +4,9 @@
     "description": "Blocks to simplify using muselab products in PXT",
     "license": "MIT",
     "dependencies": {
-        "core": "*",		
-		"pxt-muselab-plugin": "github:muselab/pxt-robotic-shield#v1.0.1",
-		"pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
+        "core": "*",
+        "pxt-muselab-plugin": "github:muselab/pxt-robotic-shield#v1.0.1",
+        "pxt-muselab-lora": "github:muselab/pxt-muselab-lora",
         "pxt-muse21": "github:muselab/pxt-muse21#v0.2.28",
         "pxt-museoled": "github:muselab/pxt-muselab-oled-v2#v2.0.20"
     },
@@ -16,7 +16,6 @@
         "wifi.ts",
         "_locales/zh-TW/pxt-muselab-strings.json",
         "_locales/zh-CN/pxt-muselab-strings.json"
-        
     ],
     "testFiles": [
         "tests.ts"

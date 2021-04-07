@@ -2,31 +2,32 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
     MuseOLED.writeString(serial.readLine())
 })
 input.onButtonPressed(Button.AB, () => {
-    MuseIOT.setWifi("muselab", "12345678")
+    MuseIoT.setWifi("muselab", "12345678")
 })
 input.onButtonPressed(Button.A, () => {
-    MuseIOT.sendThingspeak("XXXXXXXXXXXXXX", 80, 0)
+    MuseIoT.sendThingspeak("XXXXXXXXXXXXXX", 80, 0, 0)
 })
 input.onButtonPressed(Button.B, () => {
-    MuseIOT.sendIFTTT(
-    "XXXXXXXXXXXXXXXXXX",
-    "email",
-    0,
-    0
+    MuseIoT.sendIFTTT(
+        "XXXXXXXXXXXXXXXXXX",
+        "email",
+        0,
+        0,
+        0
     )
 })
 input.onPinPressed(TouchPin.P0, () => {
-    MuseIOT.sendBattery()
+    MuseIoT.sendBattery()
 })
 input.onPinPressed(TouchPin.P1, () => {
-    MuseIOT.sendTest()
+    MuseIoT.sendTest()
 })
-input.onPinPressed(TouchPin.P2, () => {
-    MuseIOT.controlServo(5, 100)
-})
+// input.onPinPressed(TouchPin.P2, () => {
+//     MuseIoT.controlServo(5, 100)
+// })
 basic.showIcon(IconNames.Angry)
 MuseOLED.init()
-MuseIOT.initializeWifi()
+MuseIoT.initializeWifi()
 basic.forever(() => {
-	
+
 })
