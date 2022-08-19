@@ -310,7 +310,7 @@ namespace MuseIoT {
   //% blockGap=7
   //% group="Cloud"
   export function sendMusespeak(key: string, field1: number, field2: number, field3: number, field4: number, field5: number, field6: number): void {
-    serial.writeLine("(AT+http?method=GET&url=18.163.114.28:1880/update?key=" + key + "&field1=" + field1 + "&field2=" + field2 + "&field3=" + field3 + "&field4=" + field4 + "&field5=" + field5 + "&field6=" + field6 + "&field7=0" + "&header=&body=)");
+    serial.writeLine("(AT+http?method=GET&url=18.162.61.31:8080/update?key=" + key + "&field1=" + field1 + "&field2=" + field2 + "&field3=" + field3 + "&field4=" + field4 + "&field5=" + field5 + "&field6=" + field6 + "&field7=0" + "&header=&body=)");
   }
 
   //% blockId=muselab_set_ifttt
