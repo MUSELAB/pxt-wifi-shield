@@ -610,8 +610,7 @@ export enum deviceDescription {
 
   //% blockId=Connect to Muse Data MQTT broker
   //% block="Connect to Muse Data MQTT broker UserID %temp_ID"   
-  //% weight=58	
-  //% blockGap=7
+  //% weight=80	
   //% group="MQTT"
   export function ConnectMuseDataMQTTbroker(temp_ID: string):  void{
     b_MQTTConnectStatus = b_CheckRecivied;
@@ -638,16 +637,16 @@ export enum deviceDescription {
 
     switch (temp_Description) {
       case deviceDescription.NULL:
-        switchDescription = "CO"
+        switchDescription = "NULL"
         break
       case deviceDescription.CO2:
-        switchDescription = "CO"
+        switchDescription = "CO2"
         break
       case deviceDescription.VOC:
-        switchDescription = "CO"
+        switchDescription = "VOC"
         break
       case deviceDescription.Dust:
-        switchDescription = "CO"
+        switchDescription = "Dust"
         break
       case deviceDescription.CO:
         switchDescription = "CO"
