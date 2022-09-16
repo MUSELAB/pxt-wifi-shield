@@ -613,12 +613,10 @@ export enum deviceDescription {
   //% weight=80	
   //% group="MQTT"
   export function ConnectMuseDataMQTTbroker(temp_ID: string):  void{
-    b_MQTTConnectStatus = b_CheckRecivied;
-    if(b_MQTTConnectStatus=false)
-    {
-      serial.writeLine("(AT+startMQTT?host=" + "18.163.126.160" + "&port=" + "1883" + "&clientId=" + "muselab_hkt" + "&username=" + "siot" + "&password=" + "dfrobot" + ")");
-      serial.writeLine("(AT+mqttSub?topic=" + temp_ID + ")");
-    }
+
+    serial.writeLine("(AT+startMQTT?host=18.163.126.160&port=1883&clientId=muselab_hkt&username=siot&password=dfrobot)");
+    serial.writeLine("(AT+mqttSub?topic=" + temp_ID + ")");
+ 
     MuseDataMQTTID = temp_ID;
   }
 
