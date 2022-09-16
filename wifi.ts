@@ -572,6 +572,65 @@ namespace MuseIoT {
       + ")");
   }
 
+export enum methodDirection {
+
+    //% block="NULL"
+    NULL,
+    //% block="switch ON"
+    switch_ON,
+    //% block="switch OFF"
+    switch_OFF,
+    //% block="turn UP"
+    action_UP,
+    //% block="turn DOWN"
+    action_DOWN,
+    //% block="turn STOP"
+    action_STOP,
+}
+
+export enum deviceDescription {
+  //% block="NULL"
+  NULL,
+  //% block="CO2"
+  CO2,
+  //% block="VOC"
+  VOC,
+  //% block="Dust"
+  Dust,
+  //% block="CO"
+  CO,
+  //% block="Temp"
+  Temp,
+  //% block="Humi"
+  Humi,
+  //% block="Gas"
+  Gas
+}
+
+
+  //%subcategory=More
+  //%blockId=HKT
+  //% block="HKT MegaSensor|UserID %temp_ID DB %temp_db Deviceid %temp_deviceid Description %temp_Description methor %temp_methor"
+  //% weight=43
+  //% group="HTTP"
+  export function HKTIAQ(temp_ID: string,temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methor: methodDirection) : string {
+
+    b_CheckRecivied = false;
+    let payload = "{\"UserID\":" +"\""+ temp_ID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+temp_Description+"\","+"\"method\":" +"\""+temp_methor+"\","+"\"db\":" +"\""+temp_db+"\"}"
+    serial.writeLine("(AT+mqttPub?topic=" + temp_topic + "&payload=" + temp_payload + ")");
+    basic.pause(1000);
+    b_MQTTConnectStatus = b_CheckRecivied;
+    if(b_MQTTConnectStatus=false)
+    {
+      serial.writeLine("(AT+startMQTT?host=" + "18.163.126.160" + "&port=" + "1883" + "&clientId=" + "muselab_hkt" + "&username=" + "siot" + "&password=" + "dfrobot" + ")");
+      serial.writeLine("(AT+mqttSub?topic=" + temp_ID + ")");
+    }
+    serial.writeLine("(AT+mqttPub?topic=" + "HKT/MQTT" + "&payload=" + payload + ")");
+   
+    return str_MQTTinbound;
+  }
+
+
 
   //%subcategory=More
   //%blockId=muselab_mqtt_send_360servo
