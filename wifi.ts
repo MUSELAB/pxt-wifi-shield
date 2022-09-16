@@ -616,7 +616,7 @@ export enum deviceDescription {
 
     serial.writeLine("(AT+startMQTT?host=18.163.126.160&port=1883&clientId=muselab_hkt&username=siot&password=dfrobot)");
     basic.pause(3000);
-    serial.writeLine("(AT+mqttSub?topic=" + temp_ID + ")");
+    serial.writeLine("(AT+mqttSub?topic=" +"HKT/"+ temp_ID + ")");
  
     MuseDataMQTTID = temp_ID;
   }
@@ -684,10 +684,10 @@ export enum deviceDescription {
     if(b_MQTTConnectStatus=false)
     {
       serial.writeLine("(AT+startMQTT?host=" + "18.163.126.160" + "&port=" + "1883" + "&clientId=" + "muselab_hkt" + "&username=" + "siot" + "&password=" + "dfrobot" + ")");
-      serial.writeLine("(AT+mqttSub?topic=" + MuseDataMQTTID + ")");
+      serial.writeLine("(AT+mqttSub?topic=" +"HKT/"+MuseDataMQTTID + ")");
     }
 
-    let payload = "{\"UserID\":" +"\""+ MuseDataMQTTID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+switchDescription+"\","+"\"method\":" +"\""+switchmethord+"\","+"\"db\":" +"\""+temp_db+"\"}"
+    let payload = "{\"UserID\":" +"\""+"HKT/"+ MuseDataMQTTID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+switchDescription+"\","+"\"method\":" +"\""+switchmethord+"\","+"\"db\":" +"\""+temp_db+"\"}"
    
     serial.writeLine("(AT+mqttPub?topic=" + "HKT/MQTT" + "&payload=" + payload + ")");
     basic.pause(2000);
