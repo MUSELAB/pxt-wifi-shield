@@ -608,15 +608,12 @@ export enum deviceDescription {
   Gas
 }
 
-
-
-
   //% blockId=Connect to Muse Data MQTT broker
   //% block="Connect to Muse Data MQTT broker UserID %temp_ID"   
-  //% weight=80
+  //% weight=58	
+  //% blockGap=7
   //% group="MQTT"
   export function ConnectMuseDataMQTTbroker(temp_ID: string):  void{
-    
     b_MQTTConnectStatus = b_CheckRecivied;
     if(b_MQTTConnectStatus=false)
     {
