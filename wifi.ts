@@ -615,6 +615,7 @@ export enum deviceDescription {
   export function ConnectMuseDataMQTTbroker(temp_ID: string):  void{
 
     serial.writeLine("(AT+startMQTT?host=18.163.126.160&port=1883&clientId=muselab_hkt&username=siot&password=dfrobot)");
+    basic.pause(3000);
     serial.writeLine("(AT+mqttSub?topic=" + temp_ID + ")");
  
     MuseDataMQTTID = temp_ID;
