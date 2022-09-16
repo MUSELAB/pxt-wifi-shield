@@ -617,7 +617,7 @@ export enum deviceDescription {
 
     b_CheckRecivied = false;
     let payload = "{\"UserID\":" +"\""+ temp_ID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+temp_Description+"\","+"\"method\":" +"\""+temp_methor+"\","+"\"db\":" +"\""+temp_db+"\"}"
-    serial.writeLine("(AT+mqttPub?topic=" + temp_topic + "&payload=" + temp_payload + ")");
+    serial.writeLine("(AT+mqttPub?topic=MQTTCHECK&payload=CHECK)");
     basic.pause(1000);
     b_MQTTConnectStatus = b_CheckRecivied;
     if(b_MQTTConnectStatus=false)
