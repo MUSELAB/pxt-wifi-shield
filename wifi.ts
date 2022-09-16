@@ -626,7 +626,7 @@ export enum deviceDescription {
 
   //%subcategory=More
   //%blockId=HKT
-  //% block="HKT MegaSensor DB %temp_db Deviceid %temp_deviceid Description %temp_Description methord %temp_methor"
+  //% block="HKT MegaSensor DB %temp_db Deviceid %temp_deviceid Description %temp_Description methord %temp_methord"
   //% weight=43
   //% group="MQTT"
   export function HKTIAQ(temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methord: methodDirection) : string {
