@@ -9,6 +9,7 @@ namespace MuseIoT {
   let str_MQTTinbound = "";
   let b_MQTTConnectStatus = true;
   let b_CheckRecivied = false;
+  let MuseDataMQTTID=""
 
   export enum arcgisFunction {
     //% block="Add"
@@ -608,23 +609,89 @@ export enum deviceDescription {
 }
 
 
-  //%subcategory=More
-  //%blockId=HKT
-  //% block="HKT MegaSensor|UserID %temp_ID DB %temp_db Deviceid %temp_deviceid Description %temp_Description methor %temp_methor"
-  //% weight=43
-  //% group="HTTP"
-  export function HKTIAQ(temp_ID: string,temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methor: methodDirection) : string {
-
-    b_CheckRecivied = false;
-    let payload = "{\"UserID\":" +"\""+ temp_ID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+temp_Description+"\","+"\"method\":" +"\""+temp_methor+"\","+"\"db\":" +"\""+temp_db+"\"}"
-    serial.writeLine("(AT+mqttPub?topic=MQTTCHECK&payload=CHECK)");
-    basic.pause(1000);
+  //% blockId=Connect to Muse Data MQTT broker
+  //% block="Connect to Muse Data MQTT broker|UserID %temp_ID"   
+  //% weight=80
+  //% group="MQTT"
+  export function ConnectMuseDataMQTTbroker(temp_ID: string):  void{
+    
     b_MQTTConnectStatus = b_CheckRecivied;
     if(b_MQTTConnectStatus=false)
     {
       serial.writeLine("(AT+startMQTT?host=" + "18.163.126.160" + "&port=" + "1883" + "&clientId=" + "muselab_hkt" + "&username=" + "siot" + "&password=" + "dfrobot" + ")");
       serial.writeLine("(AT+mqttSub?topic=" + temp_ID + ")");
     }
+    MuseDataMQTTID = temp_ID;
+  }
+
+
+  //%subcategory=More
+  //%blockId=HKT
+  //% block="HKT MegaSensor|DB %temp_db Deviceid %temp_deviceid Description %temp_Description methord %temp_methor"
+  //% weight=43
+  //% group="MQTT"
+  export function HKTIAQ(temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methord: methodDirection) : string {
+ 
+    let switchDescription
+    let switchmethord
+    b_CheckRecivied = false;
+    b_MQTTConnectStatus = b_CheckRecivied;
+
+    switch (temp_Description) {
+      case deviceDescription.NULL:
+        switchDescription = "CO"
+        break
+      case deviceDescription.CO2:
+        switchDescription = "CO"
+        break
+      case deviceDescription.VOC:
+        switchDescription = "CO"
+        break
+      case deviceDescription.Dust:
+        switchDescription = "CO"
+        break
+      case deviceDescription.CO:
+        switchDescription = "CO"
+        break
+      case deviceDescription.Temp:
+        switchDescription = "Temp"
+        break  
+      case deviceDescription.Humi:
+        switchDescription = "Humi"
+        break  
+      case deviceDescription.Gas:
+        switchDescription = "Gas"
+        break  
+    }
+
+    switch (temp_methord) {
+      case methodDirection.NULL:
+        switchmethord = "NULL"
+        break
+      case methodDirection.switch_ON:
+        switchmethord = "switch_ON"
+        break
+      case methodDirection.switch_OFF:
+        switchmethord = "switch_OFF"
+        break
+      case methodDirection.action_UP:
+        switchmethord = "action_UP"
+        break
+      case methodDirection.action_DOWN:
+        switchmethord = "action_DOWN"
+        break
+      case methodDirection.action_STOP:
+        switchmethord = "action_STOP"
+        break
+    }
+    if(b_MQTTConnectStatus=false)
+    {
+      serial.writeLine("(AT+startMQTT?host=" + "18.163.126.160" + "&port=" + "1883" + "&clientId=" + "muselab_hkt" + "&username=" + "siot" + "&password=" + "dfrobot" + ")");
+      serial.writeLine("(AT+mqttSub?topic=" + MuseDataMQTTID + ")");
+    }
+
+    let payload = "{\"UserID\":" +"\""+ MuseDataMQTTID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+switchDescription+"\","+"\"method\":" +"\""+switchmethord+"\","+"\"db\":" +"\""+temp_db+"\"}"
+   
     serial.writeLine("(AT+mqttPub?topic=" + "HKT/MQTT" + "&payload=" + payload + ")");
    
     return str_MQTTinbound;
