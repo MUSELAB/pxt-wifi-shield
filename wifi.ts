@@ -627,7 +627,7 @@ export enum deviceDescription {
   //% group="MQTT"
   export function GetTheSecurityKey(temp_username: string, temp_passwword: string):  string{
 
-    serial.writeLine("(AT+mqttPub?topic=" + "HKT/Securitykey" + "&payload=" + "{\"username\":"+temp_username + "\"" + "\"password\":" + "\"" + temp_passwword +"\"}"+ ")");
+    serial.writeLine("(AT+mqttPub?topic=" + "HKT/Securitykey" + "&payload=" + "{\"username\":"+temp_username + "\"," + "\"password\":" + "\"" + temp_passwword +"\"}"+ ")");
     basic.pause(2000);
     return str_MQTTinbound;
   }
