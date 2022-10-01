@@ -621,13 +621,23 @@ export enum deviceDescription {
     MuseDataMQTTID = temp_ID;
   }
 
+  //% blockId=Get the security key
+  //% block="Get the security key Username %temp_username password %temp_passwword"   
+  //% weight=80	
+  //% group="MQTT"
+  export function GetTheSecurityKey(temp_username: string, temp_passwword: string):  string{
+
+    serial.writeLine("(AT+mqttPub?topic=" + "HKT/Securitykey" + "&payload=" + "{\"username\":"+temp_username + "\"" + "\"password\":" + "\"" + temp_passwword +"\"}"+ ")");
+    basic.pause(2000);
+    return str_MQTTinbound;
+  }
 
   //%subcategory=More
   //%blockId=HKT
-  //% block="HKT MegaSensor DB %temp_db Deviceid %temp_deviceid Description %temp_Description method %temp_methord"
+  //% block="HKT MegaSensor Securitykey %temp_Securitykey DB %temp_db Deviceid %temp_deviceid Description %temp_Description method %temp_methord"
   //% weight=43
   //% group="MQTT"
-  export function HKTIAQ(temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methord: methodDirection) : string {
+  export function HKTIAQ(temp_Securitykey: string,temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methord: methodDirection) : string {
  
     let switchDescription
     let switchmethord
@@ -687,7 +697,7 @@ export enum deviceDescription {
       serial.writeLine("(AT+mqttSub?topic=" +"HKT/"+MuseDataMQTTID + ")");
     }
 
-    let payload = "{\"UserID\":" +"\""+"HKT/"+ MuseDataMQTTID+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+switchDescription+"\","+"\"method\":" +"\""+switchmethord+"\","+"\"db\":" +"\""+temp_db+"\"}"
+    let payload = "{\"UserID\":" +"\""+"HKT/"+ MuseDataMQTTID+"\","+"\"Securitykey\":"+"\""+temp_Securitykey+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+switchDescription+"\","+"\"method\":" +"\""+switchmethord+"\","+"\"db\":" +"\""+temp_db+"\"}"
    
     serial.writeLine("(AT+mqttPub?topic=" + "HKT/MQTT" + "&payload=" + payload + ")");
     basic.pause(2000);
