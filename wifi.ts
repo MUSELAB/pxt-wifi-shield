@@ -611,7 +611,7 @@ export enum deviceDescription {
   //% blockId=Connect to Muse Data MQTT broker
   //% block="Connect to Muse Data MQTT broker UserID %temp_ID"   
   //% weight=80	
-  //% group="MQTT"
+  //% group="HTK"
   export function ConnectMuseDataMQTTbroker(temp_ID: string):  void{
 
     serial.writeLine("(AT+startMQTT?host=16.162.115.191&port=1883&clientId="+"MUSELAB"+(randint(0,9999)).toString()+"&username=siot&password=dfrobot)");
@@ -624,9 +624,10 @@ export enum deviceDescription {
   //% blockId=Get the security key
   //% block="Get the security key Username %temp_username password %temp_passwword"   
   //% weight=80	
-  //% group="MQTT"
+  //% group="HKT"
   export function GetTheSecurityKey(temp_username: string, temp_passwword: string):  string{
 
+    serial.writeLine("(AT+mqttSub?topic=" +"HKT/Securitykey"+ ")");
     serial.writeLine("(AT+mqttPub?topic=" + "HKT/Securitykey" + "&payload=" + "{\"username\":"+temp_username + "\"," + "\"password\":" + "\"" + temp_passwword +"\"}"+ ")");
     basic.pause(2000);
     return str_MQTTinbound;
@@ -636,7 +637,7 @@ export enum deviceDescription {
   //%blockId=HKT
   //% block="HKT MegaSensor Securitykey %temp_Securitykey DB %temp_db Deviceid %temp_deviceid Description %temp_Description method %temp_methord"
   //% weight=43
-  //% group="MQTT"
+  //% group="HKT"
   export function HKTIAQ(temp_Securitykey: string,temp_db: string,temp_deviceid: string,temp_Description: deviceDescription, temp_methord: methodDirection) : string {
  
     let switchDescription
