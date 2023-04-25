@@ -693,10 +693,6 @@ export enum deviceDescription {
         break
     }
 
-    serial.writeLine("(AT+startMQTT?host=" + "18.163.126.160" + "&port=" + "1883" + "&clientId=" + (randint(0,9999)).toString() + "&username=" + "siot" + "&password=" + "dfrobot" + ")");
-    serial.writeLine("(AT+mqttSub?topic=" +"HKT/"+MuseDataMQTTID + ")");
-    
-
     let payload = "{\"UserID\":" +"\""+"HKT/"+ MuseDataMQTTID+"\","+"\"Securitykey\":"+"\""+temp_Securitykey+"\","+ "\"DeviceId\":" +"\""+ temp_deviceid+"\","+ "\"device\":" + "\""+switchDescription+"\","+"\"method\":" +"\""+switchmethord+"\","+"\"db\":" +"\""+temp_db+"\"}"
    
     serial.writeLine("(AT+mqttPub?topic=" + "HKT/MQTT" + "&payload=" + payload + ")");
